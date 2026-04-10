@@ -612,17 +612,162 @@ body{
 
 /* LIST HIDDEN */
 .amplop-list{
-  margin-top:20px;
   display:none;
   flex-direction:column;
   gap:15px;
+  margin-top:15px;
+
+  opacity:0;
+  transform:translateY(-40px);
+  transition:all 0.5s ease;
 }
 
-/* ITEM */
+/* kondisi aktif */
+.amplop-list.show{
+  display:flex;
+  opacity:1;
+  transform:translateY(0);
+}
+.amplop-list.show .atm-card{
+  transform:translateY(0) scale(1);
+  opacity:1;
+}
+
+/* CARD REKENING */
 .amplop-item{
-  background:#f7f7f7;
-  padding:15px;
-  border-radius:15px;
+  position:relative;
+  background:linear-gradient(135deg, #1F4E57, #3A7CA5);
+  color:#fff;
+  padding:25px;
+  border-radius:25px;
+  height:160px; /* bikin proporsi kartu */
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+  overflow:hidden;
+}
+
+/* CHIP */
+.atm-card{
+  position:relative;
+  width:100%;
+  height:190px;
+  border-radius:20px;
+  padding:20px;
+  color:#fff;
+
+  background:linear-gradient(135deg, #0d3b66, #1F4E57);
+
+  box-shadow:
+    0 15px 30px rgba(0,0,0,0.25),
+    inset 0 1px 1px rgba(255,255,255,0.1);
+
+  overflow:hidden;
+
+  transform:translateY(-30px) scale(0.95);
+  opacity:0;
+
+  transition:all 0.4s ease;
+}
+.atm-card::after{
+  content:'';
+  position:absolute;
+  width:200%;
+  height:200%;
+  top:-50%;
+  left:-50%;
+
+  background:radial-gradient(circle, rgba(255,255,255,0.15), transparent 60%);
+  transform:rotate(25deg);
+}
+/* HEADER */
+.card-header{
+  position:absolute;
+  top:15px;
+  left:15px;
+  right:15px;
+
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.copy-btn{
+  margin-left:auto;
+}
+
+/* NOMOR (JANGAN KETIMPA VALID) */
+
+.card-number{
+  position:absolute;
+  top:115px;
+  left:20px;
+  font-size:20px;
+  letter-spacing:3px;
+  font-weight: 500;
+}
+.chip{
+  position:absolute;
+  top:65px;
+  left:20px;
+
+  width:50px;
+  height:35px;
+
+  background:linear-gradient(135deg, #f5d27a, #d4a64a);
+  border-radius:6px;
+
+  box-shadow:inset 0 0 3px rgba(0,0,0,0.3);
+}
+.name{
+  position:absolute;
+  bottom:5px;
+  left:20px;
+  font-size:12px;
+  letter-spacing:0.9px;
+}
+
+/* LOGO */
+.logo{
+  position:absolute;
+  bottom:15px;
+  right:20px;
+
+  font-size:20px;
+  font-weight:bold;
+}
+.badge{
+  background:#fff;
+  color:#1F4E57;
+  font-size:11px;
+  padding:4px 10px;
+  border-radius:8px;
+}
+
+.badge.light{
+  background:rgba(255,255,255,0.7);
+}
+
+.copy-btn{
+  margin-left:auto;
+  background:rgba(255,255,255,0.15);
+  border:none;
+  color:#fff;
+  padding:6px 14px;
+  border-radius:12px;
+  font-size:11px;
+  backdrop-filter:blur(5px);
+  transition:0.2s;
+}
+
+.copy-btn:hover{
+  background:rgba(255,255,255,0.3);
+  transform:scale(1.05);
+}
+
+.card-footer{
+  position:absolute;
+  bottom:15px;
+  left:20px;
+  right:20px;
 }
 
 .amplop-item p{
@@ -859,8 +1004,8 @@ Simpan di Kalender
 </section>
 <section class="amplop">
 
+  <!-- CARD UTAMA -->
   <div class="amplop-card-main">
-
     <h2>Amplop Digital</h2>
 
     <p class="amplop-desc">
@@ -871,26 +1016,32 @@ Simpan di Kalender
     <button class="btn-amplop" onclick="toggleRek()">
       Lihat Rekening
     </button>
+  </div>
 
-    <!-- ISI REKENING (HIDDEN) -->
-    <div class="amplop-list" id="amplopList">
+  <!-- LIST REKENING (CARD TERPISAH) -->
+  <div class="amplop-list" id="amplopList">
 
-      <div class="amplop-item">
-        <p>BCA</p>
-        <h3>1234567890</h3>
-        <span>a.n Ade M Fahrurrozi</span>
-      </div>
+<div class="atm-card">
 
-      <div class="amplop-item">
-        <p>DANA</p>
-        <h3>08123456789</h3>
-        <span>a.n Nurafifah</span>
-      </div>
+  <div class="card-header">
+    <span class="badge">Rekening BCA</span>
 
-    </div>
+<button class="copy-btn" onclick="copyRek(this)">Salin</button>
+  </div>
+
+  <div class="chip"></div>
+
+<div class="card-number">4000 1234 5678 9010</div>
+
+  <div class="card-footer">
+
+    <div class="name">ADE M FAHRURROZI</div>
 
   </div>
 
+</div>
+
+</div>
 </section>
 </div>
 
@@ -941,6 +1092,74 @@ document.getElementById("seconds").innerText = format(s);
 function format(n){
   return n < 10 ? "0" + n : n;
 }
+
+function toggleRek(){
+  const el = document.getElementById("amplopList");
+
+  if(el.classList.contains("show")){
+    el.classList.remove("show");
+
+    setTimeout(()=>{
+      el.style.display = "none";
+    },400);
+
+  } else {
+    el.style.display = "flex";
+
+    setTimeout(()=>{
+      el.classList.add("show");
+
+      // 🔥 AUTO SCROLL KE CARD
+      el.scrollIntoView({ 
+        behavior: "smooth",
+        block: "start"
+      });
+
+    },50);
+  }
+}
+function copyRek(btn){
+  const card = btn.closest(".atm-card");
+  const text = card.querySelector(".card-number").textContent.trim();
+
+  // 🔥 PRIORITAS clipboard modern
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(()=>{
+      btn.innerText = "Tersalin!";
+    }).catch(()=>{
+      fallbackCopy(text, btn);
+    });
+  } else {
+    fallbackCopy(text, btn);
+  }
+
+  setTimeout(()=>{
+    btn.innerText = "Salin";
+  },1500);
+}
+
+function fallbackCopy(text, btn){
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+
+  // 🔥 penting buat mobile
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+
+  document.body.appendChild(textarea);
+  textarea.focus();
+  textarea.select();
+
+  try {
+    document.execCommand("copy");
+    btn.innerText = "Tersalin!";
+  } catch (err) {
+    alert("Gagal menyalin 😢");
+  }
+
+  document.body.removeChild(textarea);
+}
+
 </script>
 </body>
   </html>
