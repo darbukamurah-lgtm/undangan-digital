@@ -1,1 +1,946 @@
-p
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Undangan</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Poppins', sans-serif;
+  overflow:hidden;
+  background:linear-gradient(to bottom, #ffffff, #CFE8EB);
+}
+
+/* ================= COVER ================= */
+.cover{
+  position:fixed;
+  width:100%;
+  height:100vh;
+  background:url('foto1.jpg') center/cover no-repeat;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  transition:1s;
+}
+
+.cover::after{
+  content:'';
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(255,255,255,0.6);
+  backdrop-filter: blur(6px);
+}
+
+.content{
+  position:relative;
+  z-index:2;
+  background:rgba(255,255,255,0.85);
+  padding:30px 25px;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+  animation:fadeUp 1.2s ease;
+}
+
+.small{
+  font-size:12px;
+  letter-spacing:2px;
+  color:#777;
+}
+
+.nama{
+  font-family:'Great Vibes', cursive;
+  font-size:48px;
+  margin:10px 0;
+  color:#333;
+}
+
+.guest{
+  margin-top:10px;
+  font-size:14px;
+  color:#555;
+}
+
+.btn{
+  margin-top:20px;
+  padding:12px 28px;
+  background:#e8cfc4;
+  border:none;
+  border-radius:30px;
+  color:#333;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.btn:hover{
+  transform:scale(1.05);
+  background:#d9b8aa;
+}
+
+.cover.hide{
+  opacity:0;
+  visibility:hidden;
+}
+
+/* ================= MAIN ================= */
+.main{
+  display:none;
+}
+
+/* ================= HERO ================= */
+.hero{
+  width:100%;
+}
+
+/* BACKGROUND FOTO */
+.hero-top-bg{
+  background:url('foto2.jpg') center/cover no-repeat;
+  height:55vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+}
+
+.hero-top-bg::after{
+  content:'';
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.4);
+}
+
+.hero-inner{
+  position:relative;
+  z-index:2;
+  animation:fadeUp 1.2s ease;
+}
+
+.hero-top{
+  font-size:12px;
+  letter-spacing:3px;
+  color:#fff;
+}
+
+.hero-nama{
+  font-family:'Great Vibes', cursive;
+  font-size:55px;
+  margin:15px 0;
+  color:#fff;
+}
+
+.hero-date{
+  color:#fff;
+}
+
+/* OPENING */
+.opening-text{
+  margin-top:-60px;
+  font-size:14px;
+  color:#1F4E57; /* text jadi gelap biar kebaca */
+  line-height:1.6;
+  text-align:center;
+
+  background:#CFE8EB; /* biru muda */
+  padding:25px 20px;
+
+  border-radius:25px 25px 0 0;
+  position:relative;
+  z-index:3;
+}
+
+/* WITH LOVE */
+.with-love{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.icon-bunga img{
+  width:55px;
+  filter:none; /* buang invert biar gak putih lagi */
+  margin-bottom:10px;
+}
+
+.with-love h2{
+  font-family:'Playfair Display', serif;
+  font-size:34px;
+  color:#1F4E57; /* ikut gelap biar masuk */
+  font-weight:400;
+  letter-spacing:2px;
+}
+
+/* FOTO DALAM OPENING */
+.foto-card{
+  margin:20px auto 0;
+  width:85%;
+  max-width:320px;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+.foto-card img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+/* ================= ANIMASI ================= */
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(30px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+.mempelai{
+  background: #f5f5f5;
+  padding:60px 20px;
+  text-align:center;
+}
+
+.mempelai-wrap{
+  display:flex;
+  gap:20px;
+}
+
+.mempelai-item{
+  width:50%;
+}
+
+.mempelai img{
+  width:100%;
+  aspect-ratio:3/4;
+  object-fit:cover;
+  border-radius:20px;
+  margin-bottom:15px;
+}
+
+.mempelai h2{
+  font-family:'Great Vibes', cursive;
+  font-size:28px;
+  color:#1F4E57;
+  margin-bottom:10px;
+}
+
+.mempelai p{
+  font-size:13px;
+  color:#555;
+  line-height:1.6;
+}
+.ortu{
+  font-size:13px;
+  color:#555;
+  line-height:1.7;
+}
+
+.ortu b{
+  color:#1F4E57;
+  font-weight:500;
+}
+.foto-frame{
+  position:relative;
+  width:220px;
+  height:220px;
+  margin:20px auto;
+}
+
+/* FOTO */
+.foto{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:50%;
+}
+.ig{
+  display:inline-block;
+  margin-top:10px;
+  padding:8px 18px;
+
+  background:#CFE8EB; /* biru muda */
+  color:#1F4E57;
+
+  border-radius:20px;
+  font-size:13px;
+  text-decoration:none;
+
+  transition:0.3s;
+}
+
+.ig:hover{
+  transform:scale(1.05);
+  background:#b7dce0;
+}
+.ig i{
+  margin-right:6px;
+}
+.count-section{
+  padding:60px 15px;
+  background:#CFE8EB;
+}
+
+/* CARD FULL */
+.count-card{
+  width:100%;
+  padding:35px 20px;
+  text-align:center;
+
+  background:#ffffff;
+  border-radius:25px;
+
+  box-shadow:0 10px 25px rgba(0,0,0,0.05);
+}
+
+/* TITLE */
+.count-title{
+  font-family:'Playfair Display', serif;
+  font-size:28px;
+  color:#1F4E57;
+  margin-bottom:15px;
+}
+
+/* DESC */
+.count-desc{
+  font-size:14px;
+  color:#555;
+  line-height:1.7;
+  max-width:500px;
+  margin:0 auto 30px;
+}
+
+/* COUNTDOWN */
+.countdown{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+
+.time-box{
+  background:#CFE8EB;
+  padding:15px;
+  border-radius:15px;
+  width:65px;
+}
+
+.time-box span{
+  font-size:20px;
+  font-weight:bold;
+  color:#1F4E57;
+}
+
+.time-box small{
+  font-size:11px;
+  color:#555;
+}
+
+/* BUTTON */
+.btn-calendar{
+  display:inline-block;
+  margin-top:25px;
+  padding:12px 25px;
+  border-radius:30px;
+  background:#1F4E57;
+  color:#fff;
+  text-decoration:none;
+}
+
+.btn-calendar:hover{
+  transform:scale(1.05);
+  background:#16373d;
+}
+.acara{
+  padding:60px 15px;
+  background:#CFE8EB;
+}
+
+.acara-card{
+  background:#ffffff;
+  border-radius:25px;
+  padding:25px 20px;
+  text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,0.05);
+  margin-bottom:25px;
+}
+
+.acara-card h2{
+  font-family:'Playfair Display', serif;
+  color:#1F4E57;
+  margin-bottom:10px;
+}
+
+.tanggal{
+  font-size:14px;
+  color:#777;
+}
+
+.jam{
+  font-size:16px;
+  font-weight:500;
+  margin:8px 0 12px;
+  color:#1F4E57;
+}
+
+.alamat-title{
+  margin-top:15px;
+  font-size:13px;
+  font-weight:600;
+  color:#1F4E57;
+}
+
+.alamat{
+  font-size:14px;
+  color:#555;
+  line-height:1.6;
+  margin:8px 0 15px;
+}
+
+.btn-maps{
+  display:inline-block;
+  padding:10px 22px;
+  border-radius:25px;
+  background:#1F4E57;
+  color:#fff;
+  text-decoration:none;
+  font-size:13px;
+  transition:0.2s ease;
+  box-shadow:0 5px 12px rgba(0,0,0,0.15);
+}
+
+/* HOVER */
+.btn-maps:hover{
+  background:#174047;
+  transform:translateY(-2px);
+}
+
+/* PAS DI KLIK */
+.btn-maps:active{
+  transform:scale(0.95);
+  background:#12363c;
+  box-shadow:0 2px 5px rgba(0,0,0,0.2);
+}
+.acara-card h2{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+.acara-card h2 i{
+  color:#1F4E57;
+  font-size:14px;
+}
+.maps{
+  padding:50px 15px;
+  background:#CFE8EB;
+  text-align:center;
+}
+
+.maps h2{
+  font-family:'Playfair Display', serif;
+  margin-bottom:20px;
+  color:#1F4E57;
+}
+.maps-section{
+  padding:60px 15px;
+  background:#CFE8EB;
+}
+
+/* CARD */
+.maps-card{
+  background:#fff;
+  border-radius:25px;
+  padding:20px;
+  text-align:center;
+  transition:0.3s;
+
+  box-shadow:
+    0 10px 20px rgba(0,0,0,0.05),
+    0 3px 6px rgba(0,0,0,0.03);
+}
+.maps-card:hover{
+  transform:translateY(-5px);
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.08),
+    0 10px 15px rgba(0,0,0,0.05);
+}
+/* TITLE */
+.maps-card h2{
+  font-family:'Playfair Display', serif;
+  color:#1F4E57;
+  margin-bottom:15px;
+}
+
+/* FRAME MAPS */
+.maps-frame{
+  width:100%;
+  height:250px;
+  border-radius:20px;
+  overflow:hidden;
+  margin-bottom:15px;
+
+  border:1px solid rgba(0,0,0,0.06);
+  box-shadow:0 5px 15px rgba(0,0,0,0.06);
+}
+
+.maps-frame iframe{
+  width:100%;
+  height:100%;
+  border:0;
+}
+
+/* ALAMAT */
+.maps-alamat-title{
+  font-size:13px;
+  font-weight:600;
+  color:#1F4E57;
+  margin-top:10px;
+}
+
+.maps-alamat{
+  font-size:14px;
+  color:#555;
+  line-height:1.6;
+}
+.quotes{
+  width:100%;
+  padding:60px 25px;
+
+  background:#1F4E57; /* bisa samain sama theme */
+  text-align:center;
+}
+
+.quotes-text{
+  font-family:'Playfair Display', serif;
+  font-size:16px;
+  line-height:1.4;
+  color:#fff;
+  margin-bottom:15px;
+}
+
+.quotes-source{
+  font-size:14px;
+  color:#ddd;
+}
+.quotes-label{
+  font-family:'Great Vibes', cursive;
+  font-size:30px;
+  color:#fff;
+  margin-bottom:25px;
+}
+.galeri{
+  padding:60px 15px;
+  background:#ffffff;
+  text-align:center;
+}
+
+.galeri-title{
+  font-family:'Playfair Display', serif;
+  color:#1F4E57;
+  margin-bottom:25px;
+}
+
+/* GRID */
+.galeri-grid{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:8px;
+}
+
+/* FOTO */
+.galeri-grid img{
+  width:100%;
+  aspect-ratio:3/4;
+  object-fit:cover;
+  border-radius:15px;
+}
+.amplop{
+  padding:60px 15px;
+  background:#CFE8EB;
+}
+
+/* CARD UTAMA */
+.amplop-card-main{
+  background:#fff;
+  border-radius:25px;
+  padding:30px 20px;
+  text-align:center;
+
+  box-shadow:0 10px 25px rgba(0,0,0,0.05);
+}
+
+.amplop-card-main h2{
+  font-family:'Playfair Display', serif;
+  color:#1F4E57;
+  margin-bottom:15px;
+}
+
+.amplop-desc{
+  font-size:14px;
+  line-height:1.7;
+  color:#555;
+  margin-bottom:20px;
+}
+
+/* BUTTON */
+.btn-amplop{
+  padding:10px 22px;
+  border:none;
+  border-radius:25px;
+  background:#1F4E57;
+  color:#fff;
+  font-size:13px;
+  cursor:pointer;
+}
+
+/* LIST HIDDEN */
+.amplop-list{
+  margin-top:20px;
+  display:none;
+  flex-direction:column;
+  gap:15px;
+}
+
+/* ITEM */
+.amplop-item{
+  background:#f7f7f7;
+  padding:15px;
+  border-radius:15px;
+}
+
+.amplop-item p{
+  font-size:13px;
+  color:#888;
+}
+
+.amplop-item h3{
+  margin:5px 0;
+  color:#1F4E57;
+}
+
+.amplop-item span{
+  font-size:13px;
+  color:#555;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="content">
+    <p class="small">THE WEDDING OF</p>
+    <div class="nama">Ade & Linda</div>
+
+    <p class="guest">Kepada Yth.</p>
+    <h3 id="guestName"></h3>
+
+    <button class="btn" onclick="openInvite()">Buka Undangan</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main" id="mainContent">
+
+<section class="hero">
+
+  <!-- HERO BG -->
+  <div class="hero-top-bg">
+    <div class="hero-inner">
+      <p class="hero-top">THE WEDDING OF</p>
+      <h1 class="hero-nama">Ade & Linda</h1>
+      <p class="hero-date">12 Desember 2026</p>
+    </div>
+  </div>
+
+  <!-- OPENING -->
+  <div class="opening-text">
+
+    <div class="with-love">
+      <div class="icon-bunga">
+        <img src="bouquet.png">
+      </div>
+      <h2>With Love</h2>
+    </div>
+
+    <p>Assalamu’alaikum Wr. Wb.</p><br>
+    <p>
+      Dengan Memohon Ridho Dan Rahmat Allah SWT,<br>
+      Kami Bermaksud Mengundang Bapak/Ibu/Saudara/i<br>
+      Untuk Menghadiri Acara Pernikahan Kami:
+    </p>
+
+    <div class="foto-card">
+      <img src="foto3.jpg">
+    </div>
+
+  </div>
+
+</section>
+<section class="mempelai">
+
+  <div class="mempelai-wrap">
+
+    <div class="mempelai-item">
+      <img src="cewe.jpg">
+      <h2>Lindaeni Nur'afifah</h2>
+      <p class="ortu">
+  <b>Putri Sulung dari</b><br>
+  Bapak Waslam<br>
+  Ibu Imas Masroah
+</p>
+<a href="#" class="ig">
+  <i class="fab fa-instagram"></i> Instagram
+</a>
+    </div>
+
+    <div class="mempelai-item">
+      <img src="cowo.jpg">
+      <h2>Ade M Fahrurrozi</h2>
+      <p class="ortu">
+  <b>Putra Sulung dari</b><br>
+  Bapak Iyan Sopyan<br>
+  Ibu Anah
+</p>
+<a href="#" class="ig">
+  <i class="fab fa-instagram"></i> Instagram
+</a>
+    </div>
+
+  </div>
+
+</section>
+<section class="count-section">
+
+  <div class="count-card">
+    
+    <h2 class="count-title">Count The Date</h2>
+
+    <p class="count-desc">
+      Siang dan malam berganti begitu cepat, di antara saat-saat mendebarkan yang belum pernah kami rasakan sebelumnya. Kami nantikan kehadiran keluarga dan sahabat, untuk menjadi saksi ikrar janji suci kami di hari yang bahagia:
+    </p>
+
+    <div class="countdown">
+      <div class="time-box">
+        <span id="days">00</span>
+        <small>Hari</small>
+      </div>
+      <div class="time-box">
+        <span id="hours">00</span>
+        <small>Jam</small>
+      </div>
+      <div class="time-box">
+        <span id="minutes">00</span>
+        <small>Menit</small>
+      </div>
+      <div class="time-box">
+        <span id="seconds">00</span>
+        <small>Detik</small>
+      </div>
+    </div>
+
+<a 
+href="https://calendar.google.com/calendar/render?action=TEMPLATE
+&text=Wedding%20Ade%20%26%20Linda
+&dates=20261212T010000Z/20261212T030000Z
+&details=Acara%20Pernikahan%20Ade%20dan%20Linda
+&location=Rumah%20Mempelai"
+target="_blank"
+class="btn-calendar">
+Simpan di Kalender
+</a>
+
+  </div>
+
+</section>
+<section class="acara">
+
+  <!-- AKAD -->
+  <div class="acara-card">
+    <h2><i class="fa-solid fa-ring"></i> Akad Nikah</h2>
+
+    <p class="tanggal">Sabtu, 12 Desember 2026</p>
+    <p class="jam">08.00 WIB</p>
+
+    <p class="alamat-title">DI KEDIAMAN MEMPELAI WANITA</p>
+    <p class="alamat">
+      Jl. Contoh No.123<br>
+      Desa Sukamaju, Kec. Contoh
+    </p>
+
+    <a href="https://maps.google.com/?q=-6.12345,107.12345" target="_blank" class="btn-maps">
+      Lihat Lokasi
+    </a>
+  </div>
+
+  <!-- RESEPSI -->
+  <div class="acara-card">
+<h2><i class="fa-solid fa-champagne-glasses"></i> Resepsi</h2>
+
+    <p class="tanggal">Sabtu, 12 Desember 2026</p>
+    <p class="jam">10.00 - 13.00 WIB</p>
+
+    <p class="alamat-title">DI KEDIAMAN MEMPELAI WANITA</p>
+    <p class="alamat">
+      Jl. Contoh No.123<br>
+      Desa Sukamaju, Kec. Contoh
+    </p>
+
+    <a href="https://maps.google.com/?q=-6.12345,107.12345" target="_blank" class="btn-maps">
+      Lihat Lokasi
+    </a>
+  </div>
+
+</section>
+<section class="maps-section">
+
+  <div class="maps-card">
+    
+    <h2>Lokasi Acara Resepsi</h2>
+
+   <div class="maps-frame">
+  <iframe 
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.6755783397543!2d108.5918749!3d-6.9293258!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f1151e502c9b5%3A0xa2dbfd0b2e9e283b!2sPijat%20Urut%20Bpk%20Uci%20Sanusi!5e0!3m2!1sid!2sid!4v1775839221981!5m2!1sid!2sid"
+    loading="lazy">
+  </iframe>
+</div>
+
+    <p class="maps-alamat-title">DI KEDIAMAN MEMPELAI WANITA</p>
+    <p class="maps-alamat">
+      Jl. Contoh No.123<br>
+      Desa Sukamaju, Kec. Contoh
+    </p>
+
+  </div>
+
+</section>
+<section class="quotes">
+  <p class="quotes-label"><b>Quotes</b></p>
+  <p class="quotes-text">
+    “Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri, supaya kamu merasa tenteram di sampingnya, dan dijadikan-Nya di antara kamu rasa kasih dan sayang.”
+  </p>
+
+  <span class="quotes-source">
+    QS. Ar-Rum : 21
+  </span>
+</section>
+<section class="galeri">
+
+  <h2 class="galeri-title">Galeri</h2>
+
+  <div class="galeri-grid">
+    <img src="foto3.jpg">
+    <img src="foto3.jpg">
+    <img src="foto3.jpg">
+    <img src="foto3.jpg">
+    <img src="foto3.jpg">
+    <img src="foto3.jpg">
+  </div>
+
+</section>
+<section class="amplop">
+
+  <div class="amplop-card-main">
+
+    <h2>Amplop Digital</h2>
+
+    <p class="amplop-desc">
+      Doa Restu Anda merupakan karunia yang sangat berarti bagi kami. 
+      Namun jika memberi adalah ungkapan tanda kasih Anda, Anda dapat memberi kado secara cashless.
+    </p>
+
+    <button class="btn-amplop" onclick="toggleRek()">
+      Lihat Rekening
+    </button>
+
+    <!-- ISI REKENING (HIDDEN) -->
+    <div class="amplop-list" id="amplopList">
+
+      <div class="amplop-item">
+        <p>BCA</p>
+        <h3>1234567890</h3>
+        <span>a.n Ade M Fahrurrozi</span>
+      </div>
+
+      <div class="amplop-item">
+        <p>DANA</p>
+        <h3>08123456789</h3>
+        <span>a.n Nurafifah</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+document.getElementById("guestName").innerText =
+  params.get("to") || "Tamu Undangan";
+
+function openInvite(){
+  const cover = document.querySelector(".cover");
+  const main = document.getElementById("mainContent");
+
+  cover.classList.add("hide");
+
+  setTimeout(()=>{
+    cover.style.display="none";
+    main.style.display="block";
+    document.body.style.overflow="auto";
+  },800);
+}
+</script>
+<script>
+const targetDate = new Date("Dec 12, 2026 00:00:00").getTime();
+
+setInterval(()=>{
+  const now = new Date().getTime();
+  const gap = targetDate - now;
+
+  if(gap < 0){
+    document.getElementById("days").innerText = "00";
+    document.getElementById("hours").innerText = "00";
+    document.getElementById("minutes").innerText = "00";
+    document.getElementById("seconds").innerText = "00";
+    return;
+  }
+
+  const d = Math.floor(gap / (1000*60*60*24));
+  const h = Math.floor((gap / (1000*60*60)) % 24);
+  const m = Math.floor((gap / (1000*60)) % 60);
+  const s = Math.floor((gap / 1000) % 60);
+
+  document.getElementById("days").innerText = format(d);
+document.getElementById("hours").innerText = format(h);
+document.getElementById("minutes").innerText = format(m);
+document.getElementById("seconds").innerText = format(s);
+
+},1000);
+function format(n){
+  return n < 10 ? "0" + n : n;
+}
+</script>
+</body>
+  </html>
