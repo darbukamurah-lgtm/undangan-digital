@@ -690,10 +690,6 @@ body{
   gap:8px;
 }
 
-.copy-btn{
-  margin-left:auto;
-}
-
 /* NOMOR (JANGAN KETIMPA VALID) */
 
 .card-number{
@@ -757,6 +753,14 @@ body{
   backdrop-filter:blur(5px);
   transition:0.2s;
 }
+.copy-btn {
+    position: relative !important;
+    z-index: 99999 !important; /* Angka gede sekalian biar gak ketutup apapun */
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    -webkit-user-select: auto !important; /* Penting untuk iOS */
+}
+
 
 .copy-btn:hover{
   background:rgba(255,255,255,0.3);
@@ -784,7 +788,205 @@ body{
   font-size:13px;
   color:#555;
 }
+/* Container Toast */
+.toast-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  color: #1F4E57;
+  
+  /* Settingan biar satu baris */
+  padding: 12px 20px;
+  white-space: nowrap; /* Teks dipaksa satu baris */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  
+  border-radius: 50px; /* Kembali ke model kapsul ramping */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  border: 1px solid rgba(255,255,255,0.5);
+  z-index: 10000;
+  
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  font-size: 13px;
+  font-weight: 500;
+}
 
+.toast-container.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+
+.toast-container i {
+  color: #27ae60; /* Warna icon centang hijau */
+}
+.ucapan{
+  padding:60px 15px;
+  background:#ffffff;
+}
+
+.ucapan-card{
+  background:#CFE8EB;
+  padding:25px;
+  border-radius:25px;
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.ucapan-card h2{
+  font-family:'Playfair Display', serif;
+  color:#1F4E57;
+  margin-bottom:15px;
+}
+
+.ucapan input,
+.ucapan select,
+.ucapan textarea{
+  width:100%;
+  padding:12px;
+  margin-bottom:10px;
+  border:none;
+  border-radius:10px;
+  font-family:'Poppins';
+}
+
+.ucapan textarea{
+  height:90px;
+  resize:none;
+}
+
+.ucapan button{
+  padding:10px 20px;
+  border:none;
+  border-radius:20px;
+  background:#1F4E57;
+  color:#fff;
+}
+
+.list-ucapan{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  padding:15px;
+}
+
+/* bubble dasar */
+.item-ucapan{
+  width:85%; /* 🔥 paksa lebar */
+  padding:12px 14px;
+  border-radius:16px;
+  font-size:14px;
+  line-height:1.5;
+  position:relative;
+
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.05),
+    0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* ================= HADIR ================= */
+/* HADIR (kanan) */
+.item-ucapan.hadir{
+  margin-left:auto;   /* dorong ke kanan */
+  margin-right:10px;
+  background:linear-gradient(135deg, #dcf8c6, #c8efb3);
+}
+
+/* TIDAK HADIR (kiri) */
+.item-ucapan.tidak{
+  margin-right:auto;  /* dorong ke kiri */
+  margin-left:10px;
+  background:linear-gradient(135deg, #ffffff, #f3f3f3);
+}
+
+/* nama */
+.item-ucapan h4{
+  font-size:13px;
+  margin-bottom:2px;
+  color:#075E54;
+}
+
+/* status + jam */
+.item-ucapan small{
+  font-size:11px;
+  color:#667781;
+}
+.item-ucapan.hadir small{
+  color:#2e7d32;
+  font-weight:500;
+}
+.item-ucapan.tidak small{
+  color:#c62828; /* bisa juga abu kalau mau lebih elegan */
+  font-weight:500;
+}
+/* pesan */
+.item-ucapan p{
+  margin-top:4px;
+}
+
+/* ekor kanan */
+.item-ucapan.hadir::after{
+  content:'';
+  position:absolute;
+  right:-6px;
+  bottom:0;
+  width:12px;
+  height:12px;
+  background:#c8efb3;
+  border-bottom-left-radius:12px;
+}
+
+/* ekor kiri */
+.item-ucapan.tidak::after{
+  content:'';
+  position:absolute;
+  left:-6px;
+  bottom:0;
+  width:12px;
+  height:12px;
+  background:#fff;
+  border-bottom-right-radius:12px;
+}
+
+/* efek glossy (biar gak bugil 😏) */
+.item-ucapan::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+
+  background:linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.35),
+    transparent 40%
+  );
+
+  border-radius:inherit;
+  pointer-events:none;
+}
+
+/* hover */
+.item-ucapan:hover{
+  transform:translateY(-2px);
+  box-shadow:
+    0 6px 15px rgba(0,0,0,0.08),
+    0 15px 30px rgba(0,0,0,0.12);
+}
+
+/* animasi */
+@keyframes fadeIn{
+  from{opacity:0;}
+  to{opacity:1;}
+}
 </style>
 </head>
 
@@ -1026,7 +1228,8 @@ Simpan di Kalender
   <div class="card-header">
     <span class="badge">Rekening BCA</span>
 
-<button class="copy-btn" onclick="copyRek(this)">Salin</button>
+<button class="copy-btn" data-copy="4000123456789010" onclick="bomberCopy(this)">Salin</button>
+
   </div>
 
   <div class="chip"></div>
@@ -1040,8 +1243,51 @@ Simpan di Kalender
   </div>
 
 </div>
+<div class="atm-card">
+
+  <div class="card-header">
+    <span class="badge">Rekening BRI</span>
+
+<button class="copy-btn" data-copy="4000123456789010" onclick="bomberCopy(this)">Salin</button>
+
+  </div>
+
+  <div class="chip"></div>
+
+<div class="card-number">4000 1234 5678 9010</div>
+
+  <div class="card-footer">
+
+    <div class="name">LINDAENI NUR'AFIFAH</div>
+
+  </div>
 
 </div>
+
+</div>
+</section>
+<section class="ucapan">
+
+  <div class="ucapan-card">
+    <h2>Ucapan & Doa</h2>
+
+    <input type="text" id="nama" placeholder="Nama Anda">
+    
+    <select id="kehadiran">
+      <option value="">Konfirmasi Kehadiran</option>
+      <option>Hadir</option>
+      <option>Tidak Hadir</option>
+    </select>
+
+    <textarea id="pesan" placeholder="Tulis ucapan & doa..."></textarea>
+
+    <button onclick="kirimUcapan()">Kirim</button>
+  </div>
+
+  <div class="list-ucapan" id="listUcapan">
+    <!-- isi ucapan muncul disini -->
+  </div>
+
 </section>
 </div>
 
@@ -1118,48 +1364,131 @@ function toggleRek(){
     },50);
   }
 }
-function copyRek(btn){
-  const card = btn.closest(".atm-card");
-  const text = card.querySelector(".card-number").textContent.trim();
+function copyRek(btn) {
+    // 1. Langsung tentukan nomor rekening (lebih aman daripada ambil dari DOM yang ribet)
+    // Atau kalau mau tetap dinamis, pastikan selector-nya benar
+    const noRek = "4000123456789010"; 
 
-  // 🔥 PRIORITAS clipboard modern
-  if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(text).then(()=>{
-      btn.innerText = "Tersalin!";
-    }).catch(()=>{
-      fallbackCopy(text, btn);
-    });
-  } else {
-    fallbackCopy(text, btn);
-  }
+    // 2. Buat elemen input "siluman"
+    const el = document.createElement('textarea');
+    el.value = noRek;
+    el.setAttribute('readonly', '');
+    el.style.position = 'absolute';
+    el.style.left = '-9999px';
+    document.body.appendChild(el);
 
-  setTimeout(()=>{
-    btn.innerText = "Salin";
-  },1500);
+    // 3. Proses seleksi teks
+    const selected = document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false;
+    el.select();
+    el.setSelectionRange(0, 99999); // Untuk iOS
+
+    // 4. Eksekusi salin
+    try {
+        const success = document.execCommand('copy');
+        if (success) {
+            const textLama = btn.innerText;
+            btn.innerText = "Tersalin!";
+            btn.style.background = "#27ae60"; // Kasih warna hijau biar kelihatan bedanya
+            
+            setTimeout(() => {
+                btn.innerText = textLama;
+                btn.style.background = ""; 
+            }, 2000);
+        }
+    } catch (err) {
+        alert("Gagal menyalin, silakan salin manual.");
+    }
+
+    // 5. Bersihkan kembali
+    document.body.removeChild(el);
+    if (selected) {
+        document.getSelection().removeAllRanges();
+        document.getSelection().addRange(selected);
+    }
+}
+function bomberCopy(btn) {
+    const teks = btn.getAttribute('data-copy');
+    const tempInput = document.createElement("input");
+    tempInput.value = teks;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    tempInput.setSelectionRange(0, 99999); 
+    
+    let sukses = false;
+    try {
+        sukses = document.execCommand("copy");
+    } catch (err) {
+        sukses = false;
+    }
+    
+    if (sukses) {
+        showToast(); // Panggil notifikasi premium
+    } else {
+        // Fallback kalau cara di atas gagal
+        navigator.clipboard.writeText(teks).then(() => {
+            showToast();
+        });
+    }
+    
+    document.body.removeChild(tempInput);
 }
 
-function fallbackCopy(text, btn){
-  const textarea = document.createElement("textarea");
-  textarea.value = text;
-
-  // 🔥 penting buat mobile
-  textarea.style.position = "fixed";
-  textarea.style.opacity = "0";
-
-  document.body.appendChild(textarea);
-  textarea.focus();
-  textarea.select();
-
-  try {
-    document.execCommand("copy");
-    btn.innerText = "Tersalin!";
-  } catch (err) {
-    alert("Gagal menyalin 😢");
-  }
-
-  document.body.removeChild(textarea);
+// Fungsi buat munculin notifikasi
+function showToast() {
+    const toast = document.getElementById("toast");
+    toast.classList.add("show");
+    
+    // Hilang setelah 2.5 detik
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2500);
 }
 
-</script>
+function kirimUcapan(){
+  const nama = document.getElementById("nama").value.trim();
+  const hadir = document.getElementById("kehadiran").value;
+  const pesan = document.getElementById("pesan").value.trim();
+
+  if(!nama || !pesan){
+    alert("Isi dulu ya");
+    return;
+  }
+
+  const list = document.getElementById("listUcapan");
+  const item = document.createElement("div");
+
+  // posisi bubble
+  item.className = hadir === "Hadir"
+    ? "item-ucapan hadir"
+    : "item-ucapan tidak";
+
+  // jam
+  const now = new Date();
+  const jam = now.getHours().toString().padStart(2,"0");
+  const menit = now.getMinutes().toString().padStart(2,"0");
+
+  item.innerHTML = `
+    <h4>${nama}</h4>
+    <small>${hadir} • ${jam}:${menit}</small>
+    <p>${pesan}</p>
+  `;
+
+  list.appendChild(item);
+
+  // auto scroll smooth
+  list.scrollTo({
+    top: list.scrollHeight,
+    behavior: "smooth"
+  });
+
+  // reset
+  document.getElementById("nama").value = "";
+  document.getElementById("kehadiran").value = "";
+  document.getElementById("pesan").value = "";
+}
+</script><div id="toast" class="toast-container">
+  <i class="fas fa-check-circle"></i> Nomor Rekening Tersalin!
+</div>
+
 </body>
-  </html>
+</html>
