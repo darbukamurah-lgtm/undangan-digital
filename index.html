@@ -20,7 +20,7 @@
 body{
   font-family:'Poppins', sans-serif;
   overflow:hidden;
-  background:linear-gradient(to bottom, #ffffff, #CFE8EB);
+  background: linear-gradient(to bottom, #fdfdfd, #f1f5f9); 
 }
 
 /* ================= COVER ================= */
@@ -77,17 +77,19 @@ body{
 .btn{
   margin-top:20px;
   padding:12px 28px;
-  background:#e8cfc4;
+  background: #FFFFFF !important;
+  box-shadow: 0 4px 15px rgba(0, 77, 163, 0.2);
   border:none;
   border-radius:30px;
-  color:#333;
+  color: #004DA3 !important;
   cursor:pointer;
-  transition:0.3s;
+  font-weight: 500;
+  transition: 0.3s;
 }
 
 .btn:hover{
-  transform:scale(1.05);
-  background:#d9b8aa;
+  transform: translateY(-2px);
+  background: #002d5f !important;
 }
 
 .cover.hide{
@@ -155,7 +157,7 @@ body{
   line-height:1.6;
   text-align:center;
 
-  background:#CFE8EB; /* biru muda */
+  background: #fdfdfd !important;
   padding:25px 20px;
 
   border-radius:25px 25px 0 0;
@@ -166,20 +168,42 @@ body{
 /* WITH LOVE */
 .with-love{
   text-align:center;
-  margin-bottom:20px;
+  margin-bottom:25px;
+  position:relative;
 }
 
+/* garis kiri kanan */
+.with-love::before,
+.with-love::after{
+  content:'';
+  position:absolute;
+  top:50%;
+  width:60px;
+  height:1px;
+  background:#dbe3ec;
+}
+
+.with-love::before{
+  left:20px;
+}
+
+.with-love::after{
+  right:20px;
+}
+
+/* bunga */
 .icon-bunga img{
-  width:55px;
-  filter:none; /* buang invert biar gak putih lagi */
+  width:50px;
   margin-bottom:10px;
+  opacity:0.9;
 }
 
+/* text */
 .with-love h2{
   font-family:'Playfair Display', serif;
-  font-size:34px;
-  color:#1F4E57; /* ikut gelap biar masuk */
-  font-weight:400;
+  font-size:32px;
+  color:#003A8F;
+  font-weight:500;
   letter-spacing:2px;
 }
 
@@ -211,40 +235,85 @@ body{
   }
 }
 .mempelai{
-  background: #f5f5f5;
+  background:#f8fafc !important;
   padding:60px 20px;
   text-align:center;
 }
 
+/* WRAP */
 .mempelai-wrap{
   display:flex;
   gap:20px;
 }
 
+/* CARD */
 .mempelai-item{
   width:50%;
+  position:relative;
+  overflow:hidden;
+
+  background:#ffffff;
+  border-radius:20px;
+  padding:15px;
+
+  border-top:4px solid #1E90FF;
+
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.12),
+    0 8px 20px rgba(0,0,0,0.08);
+
+  transition:0.3s;
 }
 
+/* GLOW ATAS */
+.mempelai-item::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:80px;
+
+  background:linear-gradient(
+    to bottom,
+    rgba(30,144,255,0.15),
+    transparent
+  );
+}
+
+/* HOVER */
+.mempelai-item:hover{
+  transform:translateY(-6px);
+  box-shadow:
+    0 25px 50px rgba(0,0,0,0.15),
+    0 12px 30px rgba(0,0,0,0.1);
+}
+
+/* FOTO */
 .mempelai img{
   width:100%;
   aspect-ratio:3/4;
   object-fit:cover;
-  border-radius:20px;
-  margin-bottom:15px;
+  border-radius:15px;
+  margin-bottom:12px;
+
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
+  transition:0.4s;
 }
 
+.mempelai-item:hover img{
+  transform:scale(1.03);
+}
+
+/* NAMA */
 .mempelai h2{
   font-family:'Great Vibes', cursive;
-  font-size:28px;
-  color:#1F4E57;
-  margin-bottom:10px;
+  font-size:26px;
+  color:#003A8F;
+  margin-bottom:8px;
 }
 
-.mempelai p{
-  font-size:13px;
-  color:#555;
-  line-height:1.6;
-}
+/* ORTU */
 .ortu{
   font-size:13px;
   color:#555;
@@ -252,33 +321,21 @@ body{
 }
 
 .ortu b{
-  color:#1F4E57;
+  color:#1E90FF;
   font-weight:500;
 }
-.foto-frame{
-  position:relative;
-  width:220px;
-  height:220px;
-  margin:20px auto;
-}
 
-/* FOTO */
-.foto{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  border-radius:50%;
-}
+/* BUTTON IG */
 .ig{
   display:inline-block;
-  margin-top:10px;
-  padding:8px 18px;
+  margin-top:12px;
+  padding:8px 16px;
 
-  background:#CFE8EB; /* biru muda */
-  color:#1F4E57;
+  background:linear-gradient(135deg, #1E90FF, #0066cc);
+  color:#fff;
 
   border-radius:20px;
-  font-size:13px;
+  font-size:12px;
   text-decoration:none;
 
   transition:0.3s;
@@ -286,14 +343,11 @@ body{
 
 .ig:hover{
   transform:scale(1.05);
-  background:#b7dce0;
+  opacity:0.9;
 }
+
 .ig i{
   margin-right:6px;
-}
-.count-section{
-  padding:60px 15px;
-  background:#CFE8EB;
 }
 
 /* CARD FULL */
@@ -302,24 +356,22 @@ body{
   padding:35px 20px;
   text-align:center;
 
-  background:#ffffff;
-  border-radius:25px;
-
-  box-shadow:0 10px 25px rgba(0,0,0,0.05);
+  background: linear-gradient(145deg, #0059AB, #003A8F) !important;
+box-shadow: 0 15px 35px rgba(0, 77, 163, 0.2) !important;
 }
 
 /* TITLE */
 .count-title{
   font-family:'Playfair Display', serif;
   font-size:28px;
-  color:#1F4E57;
+  color: #FFFFFF !important;
   margin-bottom:15px;
 }
 
 /* DESC */
 .count-desc{
   font-size:14px;
-  color:#555;
+  color: #E0E7FF !important;
   line-height:1.7;
   max-width:500px;
   margin:0 auto 30px;
@@ -335,7 +387,7 @@ body{
 }
 
 .time-box{
-  background:#CFE8EB;
+  background:#f2f6fb;
   padding:15px;
   border-radius:15px;
   width:65px;
@@ -358,9 +410,12 @@ body{
   margin-top:25px;
   padding:12px 25px;
   border-radius:30px;
-  background:#1F4E57;
-  color:#fff;
+  background: #FFFFFF !important;
+  box-shadow: 0 4px 15px rgba(0, 77, 163, 0.2);
+  color: #004DA3 !important;
   text-decoration:none;
+  font-weight: 500;
+  transition: 0.3s;
 }
 
 .btn-calendar:hover{
@@ -369,46 +424,46 @@ body{
 }
 .acara{
   padding:60px 15px;
-  background:#CFE8EB;
+  background: #fdfdfd !important;
 }
 
 .acara-card{
-  background:#ffffff;
+  background: linear-gradient(145deg, #0059AB, #003A8F) !important;
   border-radius:25px;
   padding:25px 20px;
   text-align:center;
-  box-shadow:0 10px 25px rgba(0,0,0,0.05);
+  box-shadow: 0 15px 35px rgba(0, 77, 163, 0.2) !important;
   margin-bottom:25px;
 }
 
 .acara-card h2{
   font-family:'Playfair Display', serif;
-  color:#1F4E57;
+  color: #FFFFFF !important;
   margin-bottom:10px;
 }
 
 .tanggal{
   font-size:14px;
-  color:#777;
+  color: #E0E7FF !important;
 }
 
 .jam{
   font-size:16px;
   font-weight:500;
   margin:8px 0 12px;
-  color:#1F4E57;
+  color: #E0E7FF !important;
 }
 
 .alamat-title{
   margin-top:15px;
   font-size:13px;
   font-weight:600;
-  color:#1F4E57;
+  color: #E0E7FF !important;
 }
 
 .alamat{
   font-size:14px;
-  color:#555;
+  color: #E0E7FF !important;
   line-height:1.6;
   margin:8px 0 15px;
 }
@@ -417,18 +472,19 @@ body{
   display:inline-block;
   padding:10px 22px;
   border-radius:25px;
-  background:#1F4E57;
-  color:#fff;
+  background: #FFFFFF !important;
+  color: #004DA3 !important;
   text-decoration:none;
   font-size:13px;
-  transition:0.2s ease;
-  box-shadow:0 5px 12px rgba(0,0,0,0.15);
+  font-weight: 500;
+  transition: 0.3s;
+  box-shadow: 0 4px 15px rgba(0, 77, 163, 0.2);
 }
 
 /* HOVER */
 .btn-maps:hover{
-  background:#174047;
-  transform:translateY(-2px);
+  background: #002d5f !important;
+  transform: translateY(-2px);
 }
 
 /* PAS DI KLIK */
@@ -444,12 +500,12 @@ body{
   gap:8px;
 }
 .acara-card h2 i{
-  color:#1F4E57;
+  color: #E0E7FF !important;
   font-size:14px;
 }
 .maps{
   padding:50px 15px;
-  background:#CFE8EB;
+  background:#f2f6fb;
   text-align:center;
 }
 
@@ -460,20 +516,18 @@ body{
 }
 .maps-section{
   padding:60px 15px;
-  background:#CFE8EB;
+  background: #fdfdfd !important;
 }
 
 /* CARD */
 .maps-card{
-  background:#fff;
+  background: linear-gradient(145deg, #0059AB, #003A8F) !important;
   border-radius:25px;
   padding:20px;
   text-align:center;
   transition:0.3s;
 
-  box-shadow:
-    0 10px 20px rgba(0,0,0,0.05),
-    0 3px 6px rgba(0,0,0,0.03);
+  box-shadow: 0 15px 35px rgba(0, 77, 163, 0.2) !important;
 }
 .maps-card:hover{
   transform:translateY(-5px);
@@ -484,7 +538,7 @@ body{
 /* TITLE */
 .maps-card h2{
   font-family:'Playfair Display', serif;
-  color:#1F4E57;
+  color: #FFFFFF !important;
   margin-bottom:15px;
 }
 
@@ -516,14 +570,14 @@ body{
 
 .maps-alamat{
   font-size:14px;
-  color:#555;
+  color: #E0E7FF !important;
   line-height:1.6;
 }
 .quotes{
   width:100%;
-  padding:60px 25px;
+  padding:20px 20px;
 
-  background:#1F4E57; /* bisa samain sama theme */
+background:linear-gradient(135deg, #003A8F, #1E90FF);
   text-align:center;
 }
 
@@ -541,19 +595,19 @@ body{
 }
 .quotes-label{
   font-family:'Great Vibes', cursive;
-  font-size:30px;
+  font-size:50px;
   color:#fff;
   margin-bottom:25px;
 }
 .galeri{
   padding:60px 15px;
-  background:#ffffff;
+  background: #f8fafc !important;
   text-align:center;
 }
 
 .galeri-title{
   font-family:'Playfair Display', serif;
-  color:#1F4E57;
+  color:#003A8F;
   margin-bottom:25px;
 }
 
@@ -573,29 +627,29 @@ body{
 }
 .amplop{
   padding:60px 15px;
-  background:#CFE8EB;
+  background: #fdfdfd !important;
 }
 
 /* CARD UTAMA */
 .amplop-card-main{
-  background:#fff;
+  background: linear-gradient(145deg, #0059AB, #003A8F) !important;
   border-radius:25px;
   padding:30px 20px;
   text-align:center;
 
-  box-shadow:0 10px 25px rgba(0,0,0,0.05);
+  box-shadow: 0 15px 35px rgba(0, 77, 163, 0.2) !important;
 }
 
 .amplop-card-main h2{
   font-family:'Playfair Display', serif;
-  color:#1F4E57;
+  color: #FFFFFF !important;
   margin-bottom:15px;
 }
 
 .amplop-desc{
   font-size:14px;
   line-height:1.7;
-  color:#555;
+  color: #E0E7FF !important;
   margin-bottom:20px;
 }
 
@@ -604,10 +658,13 @@ body{
   padding:10px 22px;
   border:none;
   border-radius:25px;
-  background:#1F4E57;
-  color:#fff;
+  background: #FFFFFF !important;
+  box-shadow: 0 4px 15px rgba(0, 77, 163, 0.2);
+  color: #004DA3 !important;
   font-size:13px;
   cursor:pointer;
+  font-weight: 500;
+  transition: 0.3s;
 }
 
 /* LIST HIDDEN */
@@ -829,11 +886,11 @@ body{
 }
 .ucapan{
   padding:60px 15px;
-  background:#ffffff;
+  background: #fdfdfd !important;
 }
 
 .ucapan-card{
-  background:#CFE8EB;
+  background: linear-gradient(145deg, #0059AB, #003A8F) !important;
   padding:25px;
   border-radius:25px;
   text-align:center;
@@ -842,7 +899,7 @@ body{
 
 .ucapan-card h2{
   font-family:'Playfair Display', serif;
-  color:#1F4E57;
+  color:#ffffff;
   margin-bottom:15px;
 }
 
@@ -866,8 +923,11 @@ body{
   padding:10px 20px;
   border:none;
   border-radius:20px;
-  background:#1F4E57;
-  color:#fff;
+  background: #FFFFFF !important;
+  box-shadow: 0 4px 15px rgba(0, 77, 163, 0.2);
+  color: #004DA3 !important;
+  font-weight: 500;
+  transition: 0.3s;
 }
 
 .list-ucapan{
@@ -1026,7 +1086,7 @@ body{
       <div class="icon-bunga">
         <img src="bouquet.png">
       </div>
-      <h2>With Love</h2>
+      <h2><b>With Love</b></h2>
     </div>
 
     <p>Assalamu’alaikum Wr. Wb.</p><br>
@@ -1045,35 +1105,41 @@ body{
 </section>
 <section class="mempelai">
 
-  <div class="mempelai-wrap">
+  <div class="mempelai-card">
 
-    <div class="mempelai-item">
-      <img src="cewe.jpg">
-      <h2>Lindaeni Nur'afifah</h2>
-      <p class="ortu">
-  <b>Putri Sulung dari</b><br>
-  Bapak Waslam<br>
-  Ibu Imas Masroah
-</p>
-<a href="#" class="ig">
-  <i class="fab fa-instagram"></i> Instagram
-</a>
-    </div>
+    <div class="mempelai-wrap">
 
-    <div class="mempelai-item">
-      <img src="cowo.jpg">
-      <h2>Ade M Fahrurrozi</h2>
-      <p class="ortu">
-  <b>Putra Sulung dari</b><br>
-  Bapak Iyan Sopyan<br>
-  Ibu Anah
-</p>
-<a href="#" class="ig">
-  <i class="fab fa-instagram"></i> Instagram
-</a>
+      <div class="mempelai-item">
+        <img src="cewe.jpg">
+        <h2>Lindaeni Nur'afifah</h2>
+        <p class="ortu">
+          <b>Putri Sulung dari</b><br>
+          Bapak Waslam<br>
+          Ibu Imas Masroah
+        </p>
+        <a href="#" class="ig">
+          <i class="fab fa-instagram"></i> Instagram
+        </a>
+      </div>
+
+      <div class="mempelai-item">
+        <img src="cowo.jpg">
+        <h2>Ade M Fahrurrozi</h2>
+        <p class="ortu">
+          <b>Putra Sulung dari</b><br>
+          Bapak Iyan Sopyan<br>
+          Ibu Anah
+        </p>
+        <a href="#" class="ig">
+          <i class="fab fa-instagram"></i> Instagram
+        </a>
+      </div>
+
     </div>
 
   </div>
+
+</section>
 
 </section>
 <section class="count-section">
@@ -1491,4 +1557,4 @@ function kirimUcapan(){
 </div>
 
 </body>
-</html>
+  </html>
