@@ -11,6 +11,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
+html{
+  scroll-behavior: smooth;
+}
 *{
   margin:0;
   padding:0;
@@ -77,19 +80,62 @@ body{
 .btn{
   margin-top:20px;
   padding:12px 28px;
-  background: #FFFFFF !important;
-  box-shadow: 0 4px 15px rgba(0, 77, 163, 0.2);
   border:none;
   border-radius:30px;
-  color: #004DA3 !important;
   cursor:pointer;
-  font-weight: 500;
-  transition: 0.3s;
+  font-weight:500;
+  letter-spacing:0.5px;
+
+  /* 🔥 warna premium */
+  background: linear-gradient(135deg, #1E90FF, #003A8F);
+  color:#fff;
+
+  /* 🔥 depth */
+  box-shadow:
+    0 6px 15px rgba(0, 77, 163, 0.3),
+    inset 0 1px 0 rgba(255,255,255,0.3);
+
+  transition:all 0.25s ease;
+
+  position:relative;
+  overflow:hidden;
 }
 
+/* ✨ HOVER */
 .btn:hover{
-  transform: translateY(-2px);
-  background: #002d5f !important;
+  transform:translateY(-2px) scale(1.03);
+
+  box-shadow:
+    0 10px 25px rgba(0, 77, 163, 0.4),
+    inset 0 1px 0 rgba(255,255,255,0.4);
+}
+
+/* 👇 KLIK */
+.btn:active{
+  transform:scale(0.96);
+
+  box-shadow:
+    0 3px 8px rgba(0,0,0,0.2),
+    inset 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* ✨ GLOSSY */
+.btn::after{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+
+  background:linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.3),
+    transparent 50%
+  );
+
+  border-radius:inherit;
+  pointer-events:none;
 }
 
 .cover.hide{
@@ -209,18 +255,50 @@ body{
 
 /* FOTO DALAM OPENING */
 .foto-card{
+  position:relative; /* 🔥 penting buat glow */
+  border-top:4px solid #1E90FF;
   margin:20px auto 0;
   width:85%;
   max-width:320px;
+
   border-radius:20px;
+  padding:15px; /* 🔥 KUNCI: biar ada ruang kayak mempelai */
+
+  background:#ffffff;
+
   overflow:hidden;
-  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.12),
+    0 8px 20px rgba(0,0,0,0.08);
 }
 
+/* 🔥 LIST / GLOW ATAS (SAMA FEEL MEMPELAI) */
+.foto-card::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:80px;
+
+  background:linear-gradient(
+    to bottom,
+    rgba(30,144,255,0.15),
+    transparent
+  );
+}
+
+/* FOTO */
 .foto-card img{
   width:100%;
   height:auto;
   display:block;
+
+  border-radius:15px; /* 🔥 biar ada layer */
+  object-fit:cover;
+
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
 }
 
 /* ================= ANIMASI ================= */
@@ -409,18 +487,61 @@ box-shadow: 0 15px 35px rgba(0, 77, 163, 0.2) !important;
   display:inline-block;
   margin-top:25px;
   padding:12px 25px;
+  border:none;
   border-radius:30px;
-  background: #FFFFFF !important;
-  box-shadow: 0 4px 15px rgba(0, 77, 163, 0.2);
-  color: #004DA3 !important;
   text-decoration:none;
-  font-weight: 500;
-  transition: 0.3s;
+  font-weight:500;
+
+  /* 🔥 warna utama */
+  background: linear-gradient(135deg, #1E90FF, #003A8F);
+  color:#fff;
+
+  /* 🔥 depth / bayangan */
+  box-shadow:
+    0 6px 15px rgba(0, 77, 163, 0.3),
+    inset 0 1px 0 rgba(255,255,255,0.3);
+
+  transition:all 0.25s ease;
+
+  position:relative;
+  overflow:hidden;
 }
 
+/* ✨ HOVER */
 .btn-calendar:hover{
-  transform:scale(1.05);
-  background:#16373d;
+  transform:translateY(-2px) scale(1.03);
+
+  box-shadow:
+    0 10px 25px rgba(0, 77, 163, 0.4),
+    inset 0 1px 0 rgba(255,255,255,0.4);
+}
+
+/* 👇 PAS DI KLIK */
+.btn-calendar:active{
+  transform:scale(0.96);
+
+  box-shadow:
+    0 3px 8px rgba(0,0,0,0.2),
+    inset 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* ✨ GLOSSY EFFECT */
+.btn-calendar::after{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+
+  background:linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.3),
+    transparent 50%
+  );
+
+  border-radius:inherit;
+  pointer-events:none;
 }
 .acara{
   padding:60px 15px;
@@ -471,27 +592,63 @@ box-shadow: 0 15px 35px rgba(0, 77, 163, 0.2) !important;
 .btn-maps{
   display:inline-block;
   padding:10px 22px;
+  border:none;
   border-radius:25px;
-  background: #FFFFFF !important;
-  color: #004DA3 !important;
   text-decoration:none;
   font-size:13px;
-  font-weight: 500;
-  transition: 0.3s;
-  box-shadow: 0 4px 15px rgba(0, 77, 163, 0.2);
+  font-weight:500;
+  letter-spacing:0.3px;
+
+  /* 🔥 warna konsisten */
+  background: linear-gradient(135deg, #1E90FF, #003A8F);
+  color:#fff;
+
+  /* 🔥 depth */
+  box-shadow:
+    0 6px 15px rgba(0, 77, 163, 0.3),
+    inset 0 1px 0 rgba(255,255,255,0.3);
+
+  transition:all 0.25s ease;
+
+  position:relative;
+  overflow:hidden;
 }
 
-/* HOVER */
+/* ✨ HOVER */
 .btn-maps:hover{
-  background: #002d5f !important;
-  transform: translateY(-2px);
+  transform:translateY(-2px) scale(1.03);
+
+  box-shadow:
+    0 10px 25px rgba(0, 77, 163, 0.4),
+    inset 0 1px 0 rgba(255,255,255,0.4);
 }
 
-/* PAS DI KLIK */
+/* 👇 KLIK */
 .btn-maps:active{
-  transform:scale(0.95);
-  background:#12363c;
-  box-shadow:0 2px 5px rgba(0,0,0,0.2);
+  transform:scale(0.96);
+
+  box-shadow:
+    0 3px 8px rgba(0,0,0,0.2),
+    inset 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* ✨ GLOSSY */
+.btn-maps::after{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+
+  background:linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.3),
+    transparent 50%
+  );
+
+  border-radius:inherit;
+  pointer-events:none;
 }
 .acara-card h2{
   display:flex;
@@ -601,7 +758,7 @@ background:linear-gradient(135deg, #003A8F, #1E90FF);
 }
 .galeri{
   padding:60px 15px;
-  background: #f8fafc !important;
+  background:#f8fafc !important;
   text-align:center;
 }
 
@@ -618,38 +775,67 @@ background:linear-gradient(135deg, #003A8F, #1E90FF);
   gap:8px;
 }
 
+/* CARD FOTO */
+.galeri-item{
+  border-top:4px solid #1E90FF;
+
+  border-radius:15px;
+  overflow:hidden;
+  background:#fff;
+
+  box-shadow:
+    0 10px 25px rgba(0,0,0,0.1),
+    0 5px 10px rgba(0,0,0,0.05);
+
+  /* 🔥 ANIMASI MASUK (LEBIH CEPET) */
+  transform:scale(0.95);
+  opacity:0;
+  transition:all 0.3s ease-out;
+}
+
+.galeri-item.show{
+  transform:scale(1);
+  opacity:1;
+}
+
 /* FOTO */
-.galeri-grid img{
+.galeri-item img{
   width:100%;
   aspect-ratio:3/4;
   object-fit:cover;
-  border-radius:15px;
+  display:block;
+
+  transition:0.3s;
+}}
+
+/* HOVER */
+.galeri-item:hover img{
+  transform:scale(1.08);
 }
 .amplop{
   padding:60px 15px;
-  background: #fdfdfd !important;
+  background:#fdfdfd !important;
 }
 
 /* CARD UTAMA */
 .amplop-card-main{
-  background: linear-gradient(145deg, #0059AB, #003A8F) !important;
+  background:linear-gradient(145deg, #0059AB, #003A8F) !important;
   border-radius:25px;
   padding:30px 20px;
   text-align:center;
-
-  box-shadow: 0 15px 35px rgba(0, 77, 163, 0.2) !important;
+  box-shadow:0 15px 35px rgba(0, 77, 163, 0.2) !important;
 }
 
 .amplop-card-main h2{
   font-family:'Playfair Display', serif;
-  color: #FFFFFF !important;
+  color:#fff !important;
   margin-bottom:15px;
 }
 
 .amplop-desc{
   font-size:14px;
   line-height:1.7;
-  color: #E0E7FF !important;
+  color:#E0E7FF !important;
   margin-bottom:20px;
 }
 
@@ -658,51 +844,43 @@ background:linear-gradient(135deg, #003A8F, #1E90FF);
   padding:10px 22px;
   border:none;
   border-radius:25px;
-  background: #FFFFFF !important;
-  box-shadow: 0 4px 15px rgba(0, 77, 163, 0.2);
-  color: #004DA3 !important;
-  font-size:13px;
   cursor:pointer;
-  font-weight: 500;
-  transition: 0.3s;
+  font-size:13px;
+  font-weight:500;
+
+  background:linear-gradient(135deg, #1E90FF, #003A8F);
+  color:#fff;
+
+  box-shadow:
+    0 6px 15px rgba(0, 77, 163, 0.3),
+    inset 0 1px 0 rgba(255,255,255,0.3);
+
+  transition:all 0.25s ease;
+  position:relative;
+  overflow:hidden;
 }
 
-/* LIST HIDDEN */
+.btn-amplop:hover{
+  transform:translateY(-2px) scale(1.03);
+}
+
+.btn-amplop:active{
+  transform:scale(0.96);
+}
+
+/* LIST (HIDDEN AWAL) */
 .amplop-list{
   display:none;
   flex-direction:column;
   gap:15px;
   margin-top:15px;
-
-  opacity:0;
-  transform:translateY(-40px);
-  transition:all 0.5s ease;
 }
 
-/* kondisi aktif */
+/* SAAT DIBUKA */
 .amplop-list.show{
   display:flex;
-  opacity:1;
-  transform:translateY(0);
-}
-.amplop-list.show .atm-card{
-  transform:translateY(0) scale(1);
-  opacity:1;
 }
 
-/* CARD REKENING */
-.amplop-item{
-  position:relative;
-  background:linear-gradient(135deg, #1F4E57, #3A7CA5);
-  color:#fff;
-  padding:25px;
-  border-radius:25px;
-  height:160px; /* bikin proporsi kartu */
-  box-shadow:0 10px 25px rgba(0,0,0,0.15);
-  overflow:hidden;
-}
-
-/* CHIP */
 .atm-card{
   position:relative;
   width:100%;
@@ -719,11 +897,43 @@ background:linear-gradient(135deg, #003A8F, #1E90FF);
 
   overflow:hidden;
 
-  transform:translateY(-30px) scale(0.95);
+  transform:translateY(-30px) scale(0.97);
   opacity:0;
-
-  transition:all 0.4s ease;
 }
+
+/* ANIMASI */
+.amplop-list.show .atm-card{
+  animation:atmTurun 0.55s ease-out forwards;
+}
+
+/* DELAY */
+.amplop-list.show .atm-card:nth-child(1){
+  animation-delay:0.1s;
+}
+.amplop-list.show .atm-card:nth-child(2){
+  animation-delay:0.2s;
+}
+.amplop-list.show .atm-card:nth-child(3){
+  animation-delay:0.3s;
+}
+
+/* KEYFRAME (LEBIH HALUS DI AKHIR) */
+@keyframes atmTurun{
+  0%{
+    transform:translateY(-30px) scale(0.97);
+    opacity:0;
+  }
+  80%{
+    transform:translateY(2px) scale(1.01);
+    opacity:1;
+  }
+  100%{
+    transform:translateY(0) scale(1);
+    opacity:1;
+  }
+}
+
+/* EFEK GLOW */
 .atm-card::after{
   content:'';
   position:absolute;
@@ -731,62 +941,50 @@ background:linear-gradient(135deg, #003A8F, #1E90FF);
   height:200%;
   top:-50%;
   left:-50%;
-
   background:radial-gradient(circle, rgba(255,255,255,0.15), transparent 60%);
   transform:rotate(25deg);
 }
+
 /* HEADER */
 .card-header{
   position:absolute;
   top:15px;
   left:15px;
   right:15px;
-
   display:flex;
   align-items:center;
   gap:8px;
 }
 
-/* NOMOR (JANGAN KETIMPA VALID) */
+/* CHIP */
+.chip{
+  position:absolute;
+  top:65px;
+  left:20px;
+  width:50px;
+  height:35px;
+  background:linear-gradient(135deg, #f5d27a, #d4a64a);
+  border-radius:6px;
+}
 
+/* NOMOR */
 .card-number{
   position:absolute;
   top:115px;
   left:20px;
   font-size:20px;
   letter-spacing:3px;
-  font-weight: 500;
 }
-.chip{
-  position:absolute;
-  top:65px;
-  left:20px;
 
-  width:50px;
-  height:35px;
-
-  background:linear-gradient(135deg, #f5d27a, #d4a64a);
-  border-radius:6px;
-
-  box-shadow:inset 0 0 3px rgba(0,0,0,0.3);
-}
+/* NAMA */
 .name{
   position:absolute;
-  bottom:5px;
+  bottom:10px;
   left:20px;
   font-size:12px;
-  letter-spacing:0.9px;
 }
 
-/* LOGO */
-.logo{
-  position:absolute;
-  bottom:15px;
-  right:20px;
-
-  font-size:20px;
-  font-weight:bold;
-}
+/* BADGE */
 .badge{
   background:#fff;
   color:#1F4E57;
@@ -795,10 +993,7 @@ background:linear-gradient(135deg, #003A8F, #1E90FF);
   border-radius:8px;
 }
 
-.badge.light{
-  background:rgba(255,255,255,0.7);
-}
-
+/* COPY BUTTON */
 .copy-btn{
   margin-left:auto;
   background:rgba(255,255,255,0.15);
@@ -807,43 +1002,13 @@ background:linear-gradient(135deg, #003A8F, #1E90FF);
   padding:6px 14px;
   border-radius:12px;
   font-size:11px;
-  backdrop-filter:blur(5px);
+  cursor:pointer;
   transition:0.2s;
 }
-.copy-btn {
-    position: relative !important;
-    z-index: 99999 !important; /* Angka gede sekalian biar gak ketutup apapun */
-    cursor: pointer !important;
-    pointer-events: auto !important;
-    -webkit-user-select: auto !important; /* Penting untuk iOS */
-}
-
 
 .copy-btn:hover{
   background:rgba(255,255,255,0.3);
   transform:scale(1.05);
-}
-
-.card-footer{
-  position:absolute;
-  bottom:15px;
-  left:20px;
-  right:20px;
-}
-
-.amplop-item p{
-  font-size:13px;
-  color:#888;
-}
-
-.amplop-item h3{
-  margin:5px 0;
-  color:#1F4E57;
-}
-
-.amplop-item span{
-  font-size:13px;
-  color:#555;
 }
 /* Container Toast */
 .toast-container {
@@ -922,12 +1087,62 @@ background:linear-gradient(135deg, #003A8F, #1E90FF);
 .ucapan button{
   padding:10px 20px;
   border:none;
-  border-radius:20px;
-  background: #FFFFFF !important;
-  box-shadow: 0 4px 15px rgba(0, 77, 163, 0.2);
-  color: #004DA3 !important;
-  font-weight: 500;
-  transition: 0.3s;
+  border-radius:25px;
+  cursor:pointer;
+  font-weight:500;
+  font-size:13px;
+  letter-spacing:0.3px;
+
+  /* 🔥 warna sama semua tombol */
+  background: linear-gradient(135deg, #1E90FF, #003A8F);
+  color:#fff;
+
+  /* 🔥 depth */
+  box-shadow:
+    0 6px 15px rgba(0, 77, 163, 0.3),
+    inset 0 1px 0 rgba(255,255,255,0.3);
+
+  transition:all 0.25s ease;
+
+  position:relative;
+  overflow:hidden;
+}
+
+/* ✨ HOVER */
+.ucapan button:hover{
+  transform:translateY(-2px) scale(1.03);
+
+  box-shadow:
+    0 10px 25px rgba(0, 77, 163, 0.4),
+    inset 0 1px 0 rgba(255,255,255,0.4);
+}
+
+/* 👇 KLIK */
+.ucapan button:active{
+  transform:scale(0.96);
+
+  box-shadow:
+    0 3px 8px rgba(0,0,0,0.2),
+    inset 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* ✨ GLOSSY */
+.ucapan button::after{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+
+  background:linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.3),
+    transparent 50%
+  );
+
+  border-radius:inherit;
+  pointer-events:none;
 }
 
 .list-ucapan{
@@ -1047,6 +1262,99 @@ background:linear-gradient(135deg, #003A8F, #1E90FF);
   from{opacity:0;}
   to{opacity:1;}
 }
+
+/* ================= ANIMASI ================= */
+.fade-soft{
+  opacity:0;
+  transform:translateY(20px);
+  transition:all 0.35s ease-out;
+}
+
+.fade-soft.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.fade-left{
+  opacity:0;
+  transform:translateX(-30px);
+  transition:all 0.35s ease-out;
+}
+
+.fade-right{
+  opacity:0;
+  transform:translateX(30px);
+  transition:all 0.35s ease-out;
+}
+
+.fade-left.show,
+.fade-right.show{
+  opacity:1;
+  transform:translateX(0);
+}
+
+.fade-up{
+  opacity:0;
+  transform:translateY(20px);
+  transition:all 0.35s ease-out; /* 🔥 DISAMAIN */
+}
+
+.fade-up.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* countdown pop */
+.pop{
+  opacity:0;
+  transform:scale(0.9);
+  transition:all 0.3s ease-out; /* biarin cepet */
+}
+
+.pop.show{
+  opacity:1;
+  transform:scale(1);
+}
+
+.fade-up-slow{
+  opacity:0;
+  transform:translateY(25px);
+  transition:all 0.4s ease-out; /* ini biar beda dikit */
+}
+
+.fade-up-slow.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* delay */
+.acara-card:nth-child(2){
+  transition-delay:0.06s;
+}
+
+/* zoom map */
+.zoom-map iframe{
+  transform:scale(1.1);
+  transition:transform 0.5s ease-out; /* dipercepat dikit */
+}
+
+.zoom-map.show iframe{
+  transform:scale(1);
+}
+
+/* quotes delay */
+.quotes-label{
+  transition-delay:0.05s;
+}
+
+.quotes-text{
+  transition-delay:0.1s;
+}
+
+.quotes-source{
+  transition-delay:0.15s;
+}
+
 </style>
 </head>
 
@@ -1082,21 +1390,25 @@ background:linear-gradient(135deg, #003A8F, #1E90FF);
   <!-- OPENING -->
   <div class="opening-text">
 
-    <div class="with-love">
-      <div class="icon-bunga">
-        <img src="bouquet.png">
-      </div>
-      <h2><b>With Love</b></h2>
-    </div>
+<div class="with-love">
 
-    <p>Assalamu’alaikum Wr. Wb.</p><br>
-    <p>
-      Dengan Memohon Ridho Dan Rahmat Allah SWT,<br>
-      Kami Bermaksud Mengundang Bapak/Ibu/Saudara/i<br>
-      Untuk Menghadiri Acara Pernikahan Kami:
-    </p>
+  <div class="icon-bunga fade-soft">
+    <img src="bouquet.png">
+  </div>
 
-    <div class="foto-card">
+  <h2 class="fade-soft"><b>With Love</b></h2>
+
+</div>
+
+<p class="fade-soft">Assalamu’alaikum Wr. Wb.</p>
+
+<p class="fade-soft">
+Dengan Memohon Ridho Dan Rahmat Allah SWT,<br>
+Kami Bermaksud Mengundang Bapak/Ibu/Saudara/i<br>
+Untuk Menghadiri Acara Pernikahan Kami:
+</p>
+
+<div class="foto-card fade-soft">
       <img src="foto3.jpg">
     </div>
 
@@ -1109,7 +1421,7 @@ background:linear-gradient(135deg, #003A8F, #1E90FF);
 
     <div class="mempelai-wrap">
 
-      <div class="mempelai-item">
+     <div class="mempelai-item fade-left">
         <img src="cewe.jpg">
         <h2>Lindaeni Nur'afifah</h2>
         <p class="ortu">
@@ -1122,7 +1434,7 @@ background:linear-gradient(135deg, #003A8F, #1E90FF);
         </a>
       </div>
 
-      <div class="mempelai-item">
+      <div class="mempelai-item fade-right">
         <img src="cowo.jpg">
         <h2>Ade M Fahrurrozi</h2>
         <p class="ortu">
@@ -1146,26 +1458,26 @@ background:linear-gradient(135deg, #003A8F, #1E90FF);
 
   <div class="count-card">
     
-    <h2 class="count-title">Count The Date</h2>
+<h2 class="count-title fade-up">Count The Date</h2>
 
-    <p class="count-desc">
+<p class="count-desc fade-up">
       Siang dan malam berganti begitu cepat, di antara saat-saat mendebarkan yang belum pernah kami rasakan sebelumnya. Kami nantikan kehadiran keluarga dan sahabat, untuk menjadi saksi ikrar janji suci kami di hari yang bahagia:
     </p>
 
     <div class="countdown">
-      <div class="time-box">
+      <div class="time-box pop">
         <span id="days">00</span>
         <small>Hari</small>
       </div>
-      <div class="time-box">
+      <div class="time-box pop">
         <span id="hours">00</span>
         <small>Jam</small>
       </div>
-      <div class="time-box">
+      <div class="time-box pop">
         <span id="minutes">00</span>
         <small>Menit</small>
       </div>
-      <div class="time-box">
+      <div class="time-box pop">
         <span id="seconds">00</span>
         <small>Detik</small>
       </div>
@@ -1178,7 +1490,7 @@ href="https://calendar.google.com/calendar/render?action=TEMPLATE
 &details=Acara%20Pernikahan%20Ade%20dan%20Linda
 &location=Rumah%20Mempelai"
 target="_blank"
-class="btn-calendar">
+class="btn-calendar fade-up">
 Simpan di Kalender
 </a>
 
@@ -1188,7 +1500,7 @@ Simpan di Kalender
 <section class="acara">
 
   <!-- AKAD -->
-  <div class="acara-card">
+  <div class="acara-card fade-up-slow">
     <h2><i class="fa-solid fa-ring"></i> Akad Nikah</h2>
 
     <p class="tanggal">Sabtu, 12 Desember 2026</p>
@@ -1206,7 +1518,7 @@ Simpan di Kalender
   </div>
 
   <!-- RESEPSI -->
-  <div class="acara-card">
+<div class="acara-card fade-up-slow">
 <h2><i class="fa-solid fa-champagne-glasses"></i> Resepsi</h2>
 
     <p class="tanggal">Sabtu, 12 Desember 2026</p>
@@ -1226,19 +1538,22 @@ Simpan di Kalender
 </section>
 <section class="maps-section">
 
-  <div class="maps-card">
+  <div class="maps-card fade-up">
     
-    <h2>Lokasi Acara Resepsi</h2>
+    <h2 class="fade-up">Lokasi Acara Resepsi</h2>
 
-   <div class="maps-frame">
-  <iframe 
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.6755783397543!2d108.5918749!3d-6.9293258!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f1151e502c9b5%3A0xa2dbfd0b2e9e283b!2sPijat%20Urut%20Bpk%20Uci%20Sanusi!5e0!3m2!1sid!2sid!4v1775839221981!5m2!1sid!2sid"
-    loading="lazy">
-  </iframe>
-</div>
+    <div class="maps-frame zoom-map">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.6755783397543!2d108.5918749!3d-6.9293258!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f1151e502c9b5%3A0xa2dbfd0b2e9e283b!2sPijat%20Urut%20Bpk%20Uci%20Sanusi!5e0!3m2!1sid!2sid!4v1775839221981!5m2!1sid!2sid"
+        loading="lazy">
+      </iframe>
+    </div>
 
-    <p class="maps-alamat-title">DI KEDIAMAN MEMPELAI WANITA</p>
-    <p class="maps-alamat">
+    <p class="maps-alamat-title fade-up">
+      DI KEDIAMAN MEMPELAI WANITA
+    </p>
+
+    <p class="maps-alamat fade-up">
       Jl. Contoh No.123<br>
       Desa Sukamaju, Kec. Contoh
     </p>
@@ -1247,33 +1562,55 @@ Simpan di Kalender
 
 </section>
 <section class="quotes">
-  <p class="quotes-label"><b>Quotes</b></p>
-  <p class="quotes-text">
+
+  <p class="quotes-label fade-up"><b>Quotes</b></p>
+
+  <p class="quotes-text fade-up">
     “Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri, supaya kamu merasa tenteram di sampingnya, dan dijadikan-Nya di antara kamu rasa kasih dan sayang.”
   </p>
 
-  <span class="quotes-source">
+  <span class="quotes-source fade-up">
     QS. Ar-Rum : 21
   </span>
+
 </section>
 <section class="galeri">
 
-  <h2 class="galeri-title">Galeri</h2>
+  <h2 class="galeri-title fade-up">Galeri</h2>
 
   <div class="galeri-grid">
-    <img src="foto3.jpg">
-    <img src="foto3.jpg">
-    <img src="foto3.jpg">
-    <img src="foto3.jpg">
-    <img src="foto3.jpg">
-    <img src="foto3.jpg">
+
+    <div class="galeri-item pop">
+      <img src="foto3.jpg">
+    </div>
+
+    <div class="galeri-item pop">
+      <img src="foto3.jpg">
+    </div>
+
+    <div class="galeri-item pop">
+      <img src="foto3.jpg">
+    </div>
+
+    <div class="galeri-item pop">
+      <img src="foto3.jpg">
+    </div>
+
+    <div class="galeri-item pop">
+      <img src="foto3.jpg">
+    </div>
+
+    <div class="galeri-item pop">
+      <img src="foto3.jpg">
+    </div>
+
   </div>
 
 </section>
 <section class="amplop">
 
   <!-- CARD UTAMA -->
-  <div class="amplop-card-main">
+  <div class="amplop-card-main fade-up">
     <h2>Amplop Digital</h2>
 
     <p class="amplop-desc">
@@ -1289,7 +1626,7 @@ Simpan di Kalender
   <!-- LIST REKENING (CARD TERPISAH) -->
   <div class="amplop-list" id="amplopList">
 
-<div class="atm-card">
+<div class="atm-card pop">
 
   <div class="card-header">
     <span class="badge">Rekening BCA</span>
@@ -1372,6 +1709,16 @@ function openInvite(){
     cover.style.display="none";
     main.style.display="block";
     document.body.style.overflow="auto";
+
+    // 🔥 PINDAH KE SINI
+    const items = document.querySelectorAll('.fade-soft');
+
+    items.forEach((el, i)=>{
+      setTimeout(()=>{
+        el.classList.add('show');
+      }, i * 300);
+    });
+
   },800);
 }
 </script>
@@ -1413,64 +1760,22 @@ function toggleRek(){
 
     setTimeout(()=>{
       el.style.display = "none";
-    },400);
+    },300);
 
   } else {
     el.style.display = "flex";
 
+    // 🔥 DELAY DIKIT BIAR BENER2 KE-RENDER DULU
     setTimeout(()=>{
       el.classList.add("show");
 
-      // 🔥 AUTO SCROLL KE CARD
       el.scrollIntoView({ 
         behavior: "smooth",
         block: "start"
       });
 
-    },50);
+    },100); // 🔥 ini kuncinya
   }
-}
-function copyRek(btn) {
-    // 1. Langsung tentukan nomor rekening (lebih aman daripada ambil dari DOM yang ribet)
-    // Atau kalau mau tetap dinamis, pastikan selector-nya benar
-    const noRek = "4000123456789010"; 
-
-    // 2. Buat elemen input "siluman"
-    const el = document.createElement('textarea');
-    el.value = noRek;
-    el.setAttribute('readonly', '');
-    el.style.position = 'absolute';
-    el.style.left = '-9999px';
-    document.body.appendChild(el);
-
-    // 3. Proses seleksi teks
-    const selected = document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false;
-    el.select();
-    el.setSelectionRange(0, 99999); // Untuk iOS
-
-    // 4. Eksekusi salin
-    try {
-        const success = document.execCommand('copy');
-        if (success) {
-            const textLama = btn.innerText;
-            btn.innerText = "Tersalin!";
-            btn.style.background = "#27ae60"; // Kasih warna hijau biar kelihatan bedanya
-            
-            setTimeout(() => {
-                btn.innerText = textLama;
-                btn.style.background = ""; 
-            }, 2000);
-        }
-    } catch (err) {
-        alert("Gagal menyalin, silakan salin manual.");
-    }
-
-    // 5. Bersihkan kembali
-    document.body.removeChild(el);
-    if (selected) {
-        document.getSelection().removeAllRanges();
-        document.getSelection().addRange(selected);
-    }
 }
 function bomberCopy(btn) {
     const teks = btn.getAttribute('data-copy');
@@ -1552,6 +1857,25 @@ function kirimUcapan(){
   document.getElementById("kehadiran").value = "";
   document.getElementById("pesan").value = "";
 }
+const animItems = document.querySelectorAll(
+  '.fade-soft, .fade-left, .fade-right, .fade-up, .fade-up-slow, .pop, .zoom-map'
+);
+
+window.addEventListener('scroll', () => {
+  animItems.forEach((el) => {
+
+    if(el.classList.contains('show')) return;
+
+    const top = el.getBoundingClientRect().top;
+
+    if(top < window.innerHeight - 120){
+      setTimeout(()=>{
+        el.classList.add('show');
+      }, 80); // 🔥 delay tipis aja (bukan i lagi)
+    }
+
+  });
+});
 </script><div id="toast" class="toast-container">
   <i class="fas fa-check-circle"></i> Nomor Rekening Tersalin!
 </div>
