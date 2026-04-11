@@ -936,6 +936,7 @@ background:linear-gradient(135deg, #003A8F, #1E90FF);
 /* EFEK GLOW */
 .atm-card::after{
   content:'';
+  pointer-events:none;
   position:absolute;
   width:200%;
   height:200%;
@@ -1248,7 +1249,12 @@ background:linear-gradient(135deg, #003A8F, #1E90FF);
   border-radius:inherit;
   pointer-events:none;
 }
-
+.ucapan-card:nth-child(2){
+  transition-delay:0.1s;
+}
+.ucapan-card:nth-child(3){
+  transition-delay:0.2s;
+}
 /* hover */
 .item-ucapan:hover{
   transform:translateY(-2px);
@@ -1354,7 +1360,94 @@ background:linear-gradient(135deg, #003A8F, #1E90FF);
 .quotes-source{
   transition-delay:0.15s;
 }
+.music-btn{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  z-index:9999;
 
+  width:50px;
+  height:50px;
+
+  border:none;
+  border-radius:50%;
+
+  background:#003A8F;
+  color:#fff;
+  font-size:12px;
+
+  cursor:pointer;
+
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+.footer{
+  margin-top:50px;
+  padding:70px 20px 80px;
+  text-align:center;
+
+  background:linear-gradient(135deg, #003A8F, #1E90FF);
+  color:#fff;
+
+  position:relative;
+  overflow:hidden;
+}
+
+/* glow halus */
+.footer::before{
+  content:'';
+  position:absolute;
+  width:200%;
+  height:200%;
+  top:-50%;
+  left:-50%;
+
+  background:radial-gradient(circle, rgba(255,255,255,0.08), transparent 60%);
+}
+
+/* isi */
+.footer-content{
+  max-width:350px;
+  margin:auto;
+  position:relative;
+  z-index:2;
+}
+
+/* atas */
+.footer-top{
+  font-size:12px;
+  letter-spacing:4px;
+  opacity:0.75;
+  margin-bottom:20px;
+}
+
+/* nama */
+.footer h2{
+  font-family:'Great Vibes', cursive;
+  font-size:44px;
+  margin-bottom:20px; /* 🔥 biar gak nempel */
+}
+
+/* deskripsi */
+.footer-desc{
+  font-size:14px;
+  max-width:320px;
+  margin:0 auto 40px; /* 🔥 jarak ke bawah */
+  line-height:1.7;
+  opacity:0.9;
+}
+
+/* credit */
+.footer-credit{
+  font-size:10px;
+  opacity:0.6;
+  letter-spacing:1.5px;
+}
+
+.footer-credit span{
+  font-weight:500;
+  color:#fff;
+}
 </style>
 </head>
 
@@ -1671,7 +1764,7 @@ Simpan di Kalender
 </section>
 <section class="ucapan">
 
-  <div class="ucapan-card">
+  <div class="ucapan-card fade-soft">
     <h2>Ucapan & Doa</h2>
 
     <input type="text" id="nama" placeholder="Nama Anda">
@@ -1692,6 +1785,18 @@ Simpan di Kalender
   </div>
 
 </section>
+<footer class="footer">
+  <div class="footer-content">
+    <p class="footer-top">Yang Berbahagia</p>
+    <h2>Ade & Linda</h2>
+    <p class="footer-desc">
+      Atas kehadiran dan doa restu yang diberikan, kami ucapkan terima kasih
+    </p>
+    <p class="footer-credit">
+  Designed & Developed by <br>Santri Production
+</p>
+  </div>
+</footer>
 </div>
 
 <script>
@@ -1702,6 +1807,7 @@ document.getElementById("guestName").innerText =
 function openInvite(){
   const cover = document.querySelector(".cover");
   const main = document.getElementById("mainContent");
+  const music = document.getElementById("bgMusic");
 
   cover.classList.add("hide");
 
@@ -1710,16 +1816,35 @@ function openInvite(){
     main.style.display="block";
     document.body.style.overflow="auto";
 
-    // 🔥 PINDAH KE SINI
+    // animasi awal
     const items = document.querySelectorAll('.fade-soft');
-
     items.forEach((el, i)=>{
       setTimeout(()=>{
         el.classList.add('show');
       }, i * 300);
     });
+   
+    // play musik
+    if(music){
+      music.volume = 0.3;
+      music.play().catch(()=>{});
+    }
 
   },800);
+}
+
+
+function toggleMusic(){
+  const music = document.getElementById("bgMusic");
+  const btn = document.querySelector(".music-btn");
+
+  if(music.paused){
+    music.play();
+    btn.innerText = "ON";
+  }else{
+    music.pause();
+    btn.innerText = "OFF";
+  }
 }
 </script>
 <script>
@@ -1778,30 +1903,31 @@ function toggleRek(){
   }
 }
 function bomberCopy(btn) {
-    const teks = btn.getAttribute('data-copy');
-    const tempInput = document.createElement("input");
-    tempInput.value = teks;
-    document.body.appendChild(tempInput);
-    tempInput.select();
-    tempInput.setSelectionRange(0, 99999); 
-    
-    let sukses = false;
-    try {
-        sukses = document.execCommand("copy");
-    } catch (err) {
-        sukses = false;
-    }
-    
-    if (sukses) {
-        showToast(); // Panggil notifikasi premium
-    } else {
-        // Fallback kalau cara di atas gagal
-        navigator.clipboard.writeText(teks).then(() => {
-            showToast();
-        });
-    }
-    
-    document.body.removeChild(tempInput);
+const teks = btn.getAttribute('data-copy');
+const tempInput = document.createElement("input");
+tempInput.value = teks;
+document.body.appendChild(tempInput);
+tempInput.select();
+tempInput.setSelectionRange(0, 99999);
+
+let sukses = false;  
+try {  
+    sukses = document.execCommand("copy");  
+} catch (err) {  
+    sukses = false;  
+}  
+  
+if (sukses) {  
+    showToast(); // Panggil notifikasi premium  
+} else {  
+    // Fallback kalau cara di atas gagal  
+    navigator.clipboard.writeText(teks).then(() => {  
+        showToast();  
+    });  
+}  
+  
+document.body.removeChild(tempInput);
+
 }
 
 // Fungsi buat munculin notifikasi
@@ -1857,11 +1983,12 @@ function kirimUcapan(){
   document.getElementById("kehadiran").value = "";
   document.getElementById("pesan").value = "";
 }
-const animItems = document.querySelectorAll(
-  '.fade-soft, .fade-left, .fade-right, .fade-up, .fade-up-slow, .pop, .zoom-map'
-);
-
 window.addEventListener('scroll', () => {
+
+  const animItems = document.querySelectorAll(
+    '.fade-soft, .fade-left, .fade-right, .fade-up, .fade-up-slow, .pop, .zoom-map'
+  );
+
   animItems.forEach((el) => {
 
     if(el.classList.contains('show')) return;
@@ -1871,14 +1998,19 @@ window.addEventListener('scroll', () => {
     if(top < window.innerHeight - 120){
       setTimeout(()=>{
         el.classList.add('show');
-      }, 80); // 🔥 delay tipis aja (bukan i lagi)
+      }, 80);
     }
 
   });
+
 });
 </script><div id="toast" class="toast-container">
   <i class="fas fa-check-circle"></i> Nomor Rekening Tersalin!
 </div>
+<audio id="bgMusic" loop>
+  <source src="musik.mp3" type="audio/mpeg">
+</audio>
 
+<button class="music-btn" onclick="toggleMusic()">ON</button>
 </body>
   </html>
