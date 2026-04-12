@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Undangan</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+body{
+  font-family:'Poppins', sans-serif;
+  background:#f5f7f8;
+  margin:0;
+}
+
+/* HEADER ATAS */
+.top-header{
+  text-align:center;
+  padding:30px 20px 10px;
+}
+
+.top-header h1{
+  margin:0;
+  font-size:18px;
+  color:#333;
+}
+
+.brand{
+  font-family:'Great Vibes', cursive;
+  font-size:32px;
+  color:#1F4E57;
+  margin-top:5px;
+}
+
+/* WRAPPER */
+.wrapper{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+/* FORM */
+.center-area{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+
+.admin-box{
+  background:#fff;
+  padding:25px;
+  border-radius:20px;
+  width:100%;
+  max-width:400px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+h2{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  margin-bottom:12px;
+  border-radius:10px;
+  border:1px solid #ddd;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:#1F4E57;
+  color:#fff;
+  cursor:pointer;
+}
+
+/* LIST */
+.list{
+  padding:20px;
+}
+
+/* CARD */
+.card{
+  background:#fff;
+  padding:15px;
+  border-radius:15px;
+  margin-bottom:10px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.08);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.nama{ font-weight:600; }
+.nomor{ font-size:12px; color:#777; }
+
+.actions{
+  display:flex;
+  gap:6px;
+}
+
+.btn{
+  padding:8px 10px;
+  border-radius:10px;
+  font-size:12px;
+  text-decoration:none;
+  color:#fff;
+  border:none;
+  cursor:pointer;
+}
+
+.btn-wa{ background:#25D366; }
+.btn-copy{ background:#1F4E57; }
+
+/* BADGE */
+.badge{
+  display:block;
+  font-size:11px;
+  color:#27ae60;
+  margin-top:4px;
+}
+
+/* TOAST */
+.toast{
+  position:fixed;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%) translateY(100px);
+  background:#333;
+  color:#fff;
+  padding:10px 16px;
+  border-radius:20px;
+  font-size:13px;
+  opacity:0;
+  transition:0.3s;
+}
+
+.toast.show{
+  transform:translateX(-50%) translateY(0);
+  opacity:1;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER PALING ATAS -->
+<div class="top-header">
+  <h1>Admin Undangan Digital</h1>
+  <div class="brand">Ade & Linda</div>
+</div>
+
+<div class="wrapper">
+
+  <!-- FORM -->
+  <div class="center-area">
+    <div class="admin-box">
+      <h2>Generator Undangan</h2>
+
+      <input type="text" id="nama" placeholder="Nama Tamu">
+      <input type="tel" id="nomor" placeholder="Nomor WA (812xxx)" inputmode="numeric">
+
+      <button onclick="tambahTamu()">Generate & Simpan</button>
+    </div>
+  </div>
+
+  <!-- LIST -->
+  <div class="list">
+    <div id="list"></div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<script>
+const db = supabase.createClient(
+  "https://bqcpseqeiovzoymsplui.supabase.co",
+  "sb_publishable_KQP-GNeECUdrR35MZzLK1A_mJQkrI2y"
+);
+
+const list = document.getElementById("list");
+const toast = document.getElementById("toast");
+
+function showToast(msg){
+  toast.innerText = msg;
+  toast.classList.add("show");
+  setTimeout(()=>toast.classList.remove("show"),2000);
+}
+
+async function loadTamu(){
+  const { data } = await db
+    .from('tamu')
+    .select('*')
+    .order('created_at', { ascending:false });
+
+  list.innerHTML = "";
+  data.forEach(renderCard);
+}
+loadTamu();
+
+async function tambahTamu(){
+  const nama = document.getElementById("nama").value.trim();
+  const nomor = document.getElementById("nomor").value.trim();
+
+  if(!nama || !nomor){
+    showToast("Isi dulu 😭");
+    return;
+  }
+
+  const { data } = await db
+    .from('tamu')
+    .insert([{ nama, nomor }])
+    .select();
+
+  renderCard(data[0], true);
+
+  document.getElementById("nama").value="";
+  document.getElementById("nomor").value="";
+}
+
+function renderCard(tamu, isNew=false){
+  const div = document.createElement("div");
+  div.className = "card";
+
+  let sent = tamu.sent;
+
+  const linkUndangan = `https://ade-linda.vercel.app/?to=${encodeURIComponent(tamu.nama)}`;
+
+  const pesan = `Kepada Yth.
+Bapak/Ibu/Sdr/i
+*${tamu.nama}*
+
+_Assalamualaikum Warahmatullahi Wabarakatuh_
+
+Dengan memohon rahmat dan ridho-Mu Ya Allah, 
+Kami bermaksud mengundang anda pada acara pernikahan kami. 
+
+*Berikut link undangan kami*, untuk info lengkap dari acara bisa kunjungi :
+
+${linkUndangan}
+
+Merupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.
+
+*Mohon maaf perihal undangan hanya di bagikan melalui pesan ini.*
+
+Terima kasih banyak atas perhatiannya.
+
+_Wassalamualaikum Warahmatullahi Wabarakatuh_
+
+Hormat kami,
+*Ade & Linda*`;
+
+  const linkWA = `https://wa.me/62${tamu.nomor}?text=${encodeURIComponent(pesan)}`;
+
+  div.innerHTML = `
+    <div>
+      <div class="nama">${tamu.nama}</div>
+      <div class="nomor">${tamu.nomor}</div>
+      <span class="badge" style="display:${sent ? 'block':'none'};">✔ Sudah dikirim</span>
+    </div>
+    <div class="actions">
+      <a href="${linkWA}" target="_blank" class="btn btn-wa">WA</a>
+      <button class="btn btn-copy">Copy</button>
+    </div>
+  `;
+
+  const btnWA = div.querySelector(".btn-wa");
+  const btnCopy = div.querySelector(".btn-copy");
+  const badge = div.querySelector(".badge");
+
+  btnWA.addEventListener("click", async ()=>{
+    if(sent){
+      showToast("Udah pernah dikirim 😏");
+      return;
+    }
+
+    badge.style.display="block";
+    sent=true;
+
+    await db.from('tamu')
+      .update({ sent:true })
+      .eq('id', tamu.id);
+  });
+
+  btnCopy.addEventListener("click", ()=>{
+    navigator.clipboard.writeText(pesan);
+    showToast("Pesan berhasil disalin ✅");
+  });
+
+  if(isNew){
+    list.prepend(div);
+  } else {
+    list.appendChild(div);
+  }
+}
+</script>
+
+</body>
+</html>
