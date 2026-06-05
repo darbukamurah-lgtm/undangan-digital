@@ -41,7 +41,7 @@ body{
   flex-direction:column;
 }
 
-/* FORM */
+/* FORM & LOGIN BOX */
 .center-area{
   display:flex;
   justify-content:center;
@@ -49,7 +49,7 @@ body{
   padding:20px;
 }
 
-.admin-box{
+.admin-box, .login-box {
   background:#fff;
   padding:25px;
   border-radius:20px;
@@ -69,6 +69,7 @@ input{
   margin-bottom:12px;
   border-radius:10px;
   border:1px solid #ddd;
+  box-sizing: border-box;
 }
 
 button{
@@ -79,11 +80,34 @@ button{
   background:#1F4E57;
   color:#fff;
   cursor:pointer;
+  font-weight: 600;
+}
+
+/* KONDISI TAMPILAN (Sembunyikan default) */
+#auth-area, #main-content {
+  display: none;
+}
+
+/* LOGOUT AREA */
+.logout-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: right;
+}
+.btn-logout {
+  background: #c0392b;
+  padding: 8px 15px;
+  width: auto;
+  font-size: 13px;
+  border-radius: 8px;
 }
 
 /* LIST */
 .list{
   padding:20px;
+  max-width: 440px;
+  margin: 0 auto;
 }
 
 /* CARD */
@@ -140,6 +164,7 @@ button{
   font-size:13px;
   opacity:0;
   transition:0.3s;
+  z-index: 9999;
 }
 
 .toast.show{
@@ -151,7 +176,6 @@ button{
 
 <body>
 
-<!-- HEADER PALING ATAS -->
 <div class="top-header">
   <h1>Admin Undangan Digital</h1>
   <div class="brand">Ade & Linda</div>
@@ -159,21 +183,34 @@ button{
 
 <div class="wrapper">
 
-  <!-- FORM -->
-  <div class="center-area">
-    <div class="admin-box">
-      <h2>Generator Undangan</h2>
-
-      <input type="text" id="nama" placeholder="Nama Tamu">
-      <input type="tel" id="nomor" placeholder="Nomor WA (812xxx)" inputmode="numeric">
-
-      <button onclick="tambahTamu()">Generate & Simpan</button>
+  <div id="auth-area" class="center-area">
+    <div class="login-box">
+      <h2>Login Admin</h2>
+      <input type="email" id="login-email" placeholder="Email Admin">
+      <input type="password" id="login-password" placeholder="Password">
+      <button onclick="login()">Masuk</button>
     </div>
   </div>
 
-  <!-- LIST -->
-  <div class="list">
-    <div id="list"></div>
+  <div id="main-content">
+    
+    <div class="logout-container">
+      <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+
+    <div class="center-area">
+      <div class="admin-box">
+        <h2>Generator Undangan</h2>
+        <input type="text" id="nama" placeholder="Nama Tamu">
+        <input type="tel" id="nomor" placeholder="Nomor WA (812xxx)" inputmode="numeric">
+        <button onclick="tambahTamu()">Generate & Simpan</button>
+      </div>
+    </div>
+
+    <div class="list">
+      <div id="list"></div>
+    </div>
+    
   </div>
 
 </div>
@@ -190,6 +227,8 @@ const db = supabase.createClient(
 
 const list = document.getElementById("list");
 const toast = document.getElementById("toast");
+const authArea = document.getElementById("auth-area");
+const mainContent = document.getElementById("main-content");
 
 function showToast(msg){
   toast.innerText = msg;
@@ -197,16 +236,69 @@ function showToast(msg){
   setTimeout(()=>toast.classList.remove("show"),2000);
 }
 
+// 1. CEK STATUS LOGIN USER SEKARANG ATAU KETIKA PERUBAHAN AUTH
+db.auth.onAuthStateChange((event, session) => {
+  if (session) {
+    // Jika user terdeteksi sudah login
+    authArea.style.display = "none";
+    mainContent.style.display = "block";
+    loadTamu(); // Load data tamu saat login sukses
+  } else {
+    // Jika belum login / logout
+    authArea.style.display = "flex";
+    mainContent.style.display = "none";
+    list.innerHTML = ""; // Bersihkan list
+  }
+});
+
+// 2. FUNGSI LOGIN
+async function login() {
+  const email = document.getElementById("login-email").value.trim();
+  const password = document.getElementById("login-password").value.trim();
+
+  if(!email || !password){
+    showToast("Email & Password jangan kosong!");
+    return;
+  }
+
+  const { data, error } = await db.auth.signInWithPassword({
+    email: email,
+    password: password,
+  });
+
+  if (error) {
+    showToast(`Gagal: ${error.message} ❌`);
+  } else {
+    showToast("Login berhasil! 🎉");
+  }
+}
+
+// 3. FUNGSI LOGOUT
+async function logout() {
+  const { error } = await db.auth.signOut();
+  if (error) {
+    showToast("Gagal logout 😭");
+  } else {
+    showToast("Berhasil keluar 👋");
+  }
+}
+
+// --- SISA LOGIK KODE LAMA KAMU ---
+
 async function loadTamu(){
-  const { data } = await db
+  const { data, error } = await db
     .from('tamu')
     .select('*')
     .order('created_at', { ascending:false });
 
+  if (error) {
+    showToast("Gagal load data tamu!");
+    return;
+  }
+
   list.innerHTML = "";
-  data.forEach(renderCard);
+  if(data) data.forEach(renderCard);
 }
-loadTamu();
 
 async function tambahTamu(){
   const nama = document.getElementById("nama").value.trim();
@@ -217,10 +309,15 @@ async function tambahTamu(){
     return;
   }
 
-  const { data } = await db
+  const { data, error } = await db
     .from('tamu')
     .insert([{ nama, nomor }])
     .select();
+
+  if(error) {
+    showToast("Gagal simpan data!");
+    return;
+  }
 
   renderCard(data[0], true);
 
@@ -233,33 +330,8 @@ function renderCard(tamu, isNew=false){
   div.className = "card";
 
   let sent = tamu.sent;
-
   const linkUndangan = `https://ade-linda.vercel.app/?to=${encodeURIComponent(tamu.nama)}`;
-
-  const pesan = `Kepada Yth.
-Bapak/Ibu/Sdr/i
-*${tamu.nama}*
-
-_Assalamualaikum Warahmatullahi Wabarakatuh_
-
-Dengan memohon rahmat dan ridho-Mu Ya Allah, 
-Kami bermaksud mengundang anda pada acara pernikahan kami. 
-
-*Berikut link undangan kami*, untuk info lengkap dari acara bisa kunjungi :
-
-${linkUndangan}
-
-Merupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.
-
-*Mohon maaf perihal undangan hanya di bagikan melalui pesan ini.*
-
-Terima kasih banyak atas perhatiannya.
-
-_Wassalamualaikum Warahmatullahi Wabarakatuh_
-
-Hormat kami,
-*Ade & Linda*`;
-
+  const pesan = `Kepada Yth.\nBapak/Ibu/Sdr/i\n*${tamu.nama}*\n\n_Assalamualaikum Warahmatullahi Wabarakatuh_\n\nDengan memohon rahmat dan ridho-Mu Ya Allah, \nKami bermaksud mengundang anda pada acara pernikahan kami. \n\n*Berikut link undangan kami*, untuk info lengkap dari acara bisa kunjungi :\n\n${linkUndangan}\n\nMerupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\n*Mohon maaf perihal undangan hanya di bagikan melalui pesan ini.*\n\nTerima kasih banyak atas perhatiannya.\n\n_Wassalamualaikum Warahmatullahi Wabarakatuh_\n\nHormat kami,\n*Ade & Linda*`;
   const linkWA = `https://wa.me/62${tamu.nomor}?text=${encodeURIComponent(pesan)}`;
 
   div.innerHTML = `
