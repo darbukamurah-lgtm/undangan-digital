@@ -1810,10 +1810,10 @@ Simpan di Kalender
 
     <input type="text" id="nama" placeholder="Nama Anda">
     
-    <select id="kehadiran">
-      <option value="">Konfirmasi Kehadiran</option>
-      <option>Hadir</option>
-      <option>Tidak Hadir</option>
+    <select id="kehadiran" required>
+  <option value="" disabled selected hidden>Konfirmasi Kehadiran</option>
+  <option value="Hadir">Hadir</option>
+  <option value="Tidak Hadir">Tidak Hadir</option>
     </select>
 
     <textarea id="pesan" placeholder="Tulis ucapan & doa..."></textarea>
@@ -2007,10 +2007,11 @@ async function kirimUcapan(){
   const hadir = document.getElementById("kehadiran").value;
   const pesan = document.getElementById("pesan").value.trim();
 
-  if(!nama || !pesan){
-  document.getElementById("toast").innerText = "Isi dulu ya 😁";
-  showToast();
-  return;
+  // 🔥 BARIKADE SAKRAL JEMPOL SULTAN: Ditambahin || !hadir biar kalau isinya kosong ("") langsung mental ter-block, jingan!
+  if(!nama || !pesan || !hadir){
+    document.getElementById("toast").innerText = "Isi nama, pesan, & konfirmasi kehadiran ya! 😁";
+    showToast();
+    return;
   }
 
   // 🔥 CEK SUDAH PERNAH KIRIM BELUM (TARO DI SINI)
